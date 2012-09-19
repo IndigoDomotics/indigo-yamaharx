@@ -23,19 +23,39 @@ class Plugin(indigo.PluginBase):
 		self.debugLog(u"shutdown called")
 
 	# actions go here
-	def send(self, pluginAction):
-		conn = httplib.HTTPSConnection("api.pushover.net:443")
-		conn.request(
-			"POST",
-			"/1/messages",
-			urllib.urlencode({
-				# retrieve application API token from plugin preferences dict
-				"token": self.pluginPrefs["applicationapikey"],
-				# retrieve user token from plugin preferences dict
-				"user": self.pluginPrefs["userkey"],
-				"title": pluginAction.props["txttitle"],
-				"message": pluginAction.props["txtmessage"],
-			}),
-			{ "Content-type": "application/x-www-form-urlencoded" }
-		)
+	def turnOn(self, pluginAction):
+		# set power to on, confirm and update local var
+		self.debugLog(u"turnOn called")
+
+	def turnOff(self, pluginAction):
+		# set power to off, confirm and update local var
+		self.debugLog(u"turnOff called")
+
+	def sleep(self, pluginAction):
+		# set sleep to on, confirm and update local var
+		self.debugLog(u"sleep called")
+
+	def wake(self, pluginAction):
+		# set sleep to off, confirm and update local var
+		self.debugLog(u"wake called")
+
+	def setVolume(self, pluginAction):
+		# set volume, confirm and update local var
+		self.debugLog(u"setVolume called")
+
+	def getStatus(self, pluginAction):
+		# get status from receiver, update locals
+		self.debugLog(u"getStatus called")
+
+	def setPower(self, pluginAction):
+		# set power, confirm and update local var
+		self.debugLog(u"setPower called")
+
+	def setSleep(self, pluginAction):
+		# set sleep, confirm and update local var
+		self.debugLog(u"setSleep called")
+
+	def setInput(self, pluginAction):
+		# change input, confirm and update local var
+		self.debugLog(u"setInput called")
 

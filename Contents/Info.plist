@@ -3,22 +3,22 @@
 <plist version="1.0">
 <dict>
 	<key>PluginVersion</key>
-	<string>1.1.0</string>
+	<string>0.0.1</string>
 	<key>ServerApiVersion</key>
 	<string>1.0</string>
 	<key>IwsApiVersion</key>
 	<string>1.0.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>Pushover</string>
+	<string>Yamaha Rx Receiver</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.chadfrancis.indigoplugin.pushover</string>
+	<string>com.chadfrancis.indigoplugin.yamaharx</string>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>http://www.chadfrancis.com/</string>
+			<string>https://github.com/discgolfer1138/indigo_yamaharx</string>
 		</dict>
 	</array>
 </dict>

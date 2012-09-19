@@ -1,18 +1,30 @@
 <?xml version="1.0"?>
 <Actions>
-	<Action id="send">
-		<Name>Send Push Notification</Name>
-		<CallbackMethod>send</CallbackMethod>
+	<Action id="setVolume">
+		<Name>Set Volume</Name>
+		<CallbackMethod>setVolume</CallbackMethod>
 		<ConfigUI>
 			<SupportURL>http://www.chadfrancis.com</SupportURL>
-			<Field id="txttitle" type="textfield" default="">
-				<Label>Subject:</Label>
-				<Description>message title goes here</Description>
-			</Field>
-			<Field id="txtmessage" type="textfield" default="">
-				<Label>Message:</Label>
-				<Description>message body goes here</Description>
+			<Field id="txtvolume" type="textfield" default="-30">
+				<Label>Level:</Label>
+				<Description>in dB</Description>
 			</Field>
 		</ConfigUI>
+	</Action>
+	<Action id="turnOn">
+		<Name>Turn On</Name>
+		<CallbackMethod>turnOn</CallbackMethod>
+	</Action>
+	<Action id="turnOff">
+		<Name>Turn Off</Name>
+		<CallbackMethod>turnOff</CallbackMethod>
+	</Action>
+	<Action id="sleep">
+		<Name>Sleep</Name>
+		<CallbackMethod>sleep</CallbackMethod>
+	</Action>
+	<Action id="wake">
+		<Name>Wake</Name>
+		<CallbackMethod>wake</CallbackMethod>
 	</Action>
 </Actions>
