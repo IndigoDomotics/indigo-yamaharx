@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Actions>
+	<Action id="send">
+		<Name>Send Push Notification</Name>
+		<CallbackMethod>send</CallbackMethod>
+		<ConfigUI>
+			<SupportURL>http://www.chadfrancis.com</SupportURL>
+			<Field id="txttitle" type="textfield" default="">
+				<Label>Subject:</Label>
+				<Description>message title goes here</Description>
+			</Field>
+			<Field id="txtmessage" type="textfield" default="">
+				<Label>Message:</Label>
+				<Description>message body goes here</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+</Actions>
