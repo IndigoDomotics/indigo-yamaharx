@@ -4,7 +4,14 @@
 # Copyright (c) 2012, Chad Francis. All rights reserved.
 # http://www.chadfrancis.com
 
-import httplib, urllib, sys, os
+import httplib, urllib2, sys, os
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    import xml.etree.ElementTree as ET
+
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
 
 class Plugin(indigo.PluginBase):
 
@@ -43,9 +50,34 @@ class Plugin(indigo.PluginBase):
 		# set volume, confirm and update local var
 		self.debugLog(u"setVolume called")
 
-	def getStatus(self, pluginAction):
+	def getStatus(self, pluginAction, dev):
 		# get status from receiver, update locals
 		self.debugLog(u"getStatus called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		url = 'http://192.168.1.4/YamahaRemoteControl/ctrl'
+		xml_string = '<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>'
+
+		req = urllib2.Request(
+			url=url, 
+			data=xml_string, 
+			headers={'Content-Type': 'application/xml'})
+		resp = urllib2.urlopen(req)
+		status_xml = resp.read()
+		root = ET.fromstring(status_xml)
+
+		power = root.find("./Main_Zone/Basic_Status/Power_Control/Power").text
+		sleep = root.find("./Main_Zone/Basic_Status/Power_Control/Sleep").text
+		volume = root.find("./Main_Zone/Basic_Status/Vol/Lvl/Val").text
+		inputmode = root.find("./Main_Zone/Basic_Status/Input/Input_Sel").text
+
+		dev.updateStateOnServer("power", power)
+		dev.updateStateOnServer("sleep", sleep)
+		dev.updateStateOnServer("volume", volume)
+		dev.updateStateOnServer("input", inputmode)
 
 	def setPower(self, pluginAction):
 		# set power, confirm and update local var

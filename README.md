@@ -18,7 +18,7 @@ http://192.168.1.4/YamahaRemoteControl/ctrl
 ####Response
 `<YAMAHA_AV rsp="PUT" RC="0"><Main_Zone><Vol><Lvl></Lvl></Vol></Main_Zone></YAMAHA_AV>`
 
-###get system statys for main zone
+###get system status for main zone
 ####Request
 `<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>`
 ####Response

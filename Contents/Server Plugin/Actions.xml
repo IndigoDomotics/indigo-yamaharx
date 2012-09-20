@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Actions>
-	<Action id="setVolume">
+	<Action id="setVolume" deviceFilter="self">
 		<Name>Set Volume</Name>
 		<CallbackMethod>setVolume</CallbackMethod>
 		<ConfigUI>
@@ -26,5 +26,9 @@
 	<Action id="wake">
 		<Name>Wake</Name>
 		<CallbackMethod>wake</CallbackMethod>
+	</Action>
+	<Action id="getStatus" deviceFilter="self">
+		<Name>Get Status</Name>
+		<CallbackMethod>getStatus</CallbackMethod>
 	</Action>
 </Actions>

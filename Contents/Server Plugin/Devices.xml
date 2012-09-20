@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<Devices>
+    <Device type="custom" id="receiver">
+        <Name>Yamaha RX Series Receiver</Name>
+        <ConfigUI>
+            <Field id="txtip" type="textfield" default="192.168.1.4">
+                <Label>Receiver IP Address:</Label>
+                <Description>enter the ip address of your reciever</Description>
+            </Field>
+        </ConfigUI>
+        <States>
+            <State id="power">
+                <ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Power</TriggerLabel>
+                <ControlPageLabel>Power</ControlPageLabel>
+            </State>
+            <State id="sleep">
+                <ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Sleep</TriggerLabel>
+                <ControlPageLabel>Sleep</ControlPageLabel>
+            </State>
+            <State id="volume">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>Volume</TriggerLabel>
+                <ControlPageLabel>Volume</ControlPageLabel>
+            </State>
+            <State id="input">
+                <ValueType>
+                    <List>
+                        <Option value="SIRIUS">SIRIUS</Option>
+                        <Option value="XM">XM</Option>
+                        <Option value="TUNER">TUNER</Option>
+                        <Option value="MULTI CH">MULTI CH</Option>
+                        <Option value="PHONO">PHONO</Option>
+                        <Option value="CD">CD</Option>
+                        <Option value="TV">TV</Option>
+                        <Option value="MD/CD-R">MD/CD-R</Option>
+                        <Option value="BD/HD DVD">BD/HD DVD</Option>
+                        <Option value="DVD">DVD</Option>
+                        <Option value="CBL/SAT">CBL/SAT</Option>
+                        <Option value="DVR">DVR</Option>
+                        <Option value="VCR">VCR</Option>
+                        <Option value="V-AUX">V-AUX</Option>
+                        <Option value="DOCK">DOCK</Option>
+                        <Option value="PC/MCX">PC/MCX</Option>
+                        <Option value="NET RADIO">NET RADIO</Option>
+                        <Option value="Rhapsody">Rhapsody</Option>
+                        <Option value="USB">USB</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Input</TriggerLabel>
+                <ControlPageLabel>Input</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+</Devices>
