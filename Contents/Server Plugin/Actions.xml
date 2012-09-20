@@ -11,19 +11,23 @@
 			</Field>
 		</ConfigUI>
 	</Action>
-	<Action id="turnOn">
+	<Action id="toggleMute" deviceFilter="self">
+		<Name>Toggle Mute</Name>
+		<CallbackMethod>toggleMute</CallbackMethod>
+	</Action>
+	<Action id="turnOn" deviceFilter="self">
 		<Name>Turn On</Name>
 		<CallbackMethod>turnOn</CallbackMethod>
 	</Action>
-	<Action id="turnOff">
+	<Action id="turnOff" deviceFilter="self">
 		<Name>Turn Off</Name>
 		<CallbackMethod>turnOff</CallbackMethod>
 	</Action>
-	<Action id="sleep">
+	<Action id="sleep" deviceFilter="self">
 		<Name>Sleep</Name>
 		<CallbackMethod>sleep</CallbackMethod>
 	</Action>
-	<Action id="wake">
+	<Action id="wake" deviceFilter="self">
 		<Name>Wake</Name>
 		<CallbackMethod>wake</CallbackMethod>
 	</Action>

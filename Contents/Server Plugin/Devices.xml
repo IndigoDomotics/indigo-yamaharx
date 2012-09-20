@@ -10,7 +10,13 @@
         </ConfigUI>
         <States>
             <State id="power">
-                <ValueType boolType="OnOff">Boolean</ValueType>
+                <ValueType>
+                    <List>
+                        <Option value="On">On</Option>
+                        <Option value="Off">Off</Option>
+                        <Option value="Standby">Standby</Option>
+                    </List>
+                </ValueType>
                 <TriggerLabel>Power</TriggerLabel>
                 <ControlPageLabel>Power</ControlPageLabel>
             </State>
@@ -23,6 +29,11 @@
                 <ValueType>Integer</ValueType>
                 <TriggerLabel>Volume</TriggerLabel>
                 <ControlPageLabel>Volume</ControlPageLabel>
+            </State>
+            <State id="mute">
+                <ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Mute</TriggerLabel>
+                <ControlPageLabel>Mute</ControlPageLabel>
             </State>
             <State id="input">
                 <ValueType>

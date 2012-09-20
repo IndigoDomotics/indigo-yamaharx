@@ -58,6 +58,19 @@ class Plugin(indigo.PluginBase):
 		# set sleep to off, confirm and update local var
 		self.debugLog(u"wake called")
 
+	def toggleMute(self, pluginAction, dev):
+		# set sleep to off, confirm and update local var
+		self.debugLog(u"toggleMute called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		new_mute_state = 'On' if dev.states['mute']=='Off' else 'Off'
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+new_mute_state+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
 	def setVolume(self, pluginAction, dev):
 		# set volume, confirm and update local var
 		self.debugLog(u"setVolume called")
@@ -84,11 +97,13 @@ class Plugin(indigo.PluginBase):
 		power = root.find("./Main_Zone/Basic_Status/Power_Control/Power").text
 		sleep = root.find("./Main_Zone/Basic_Status/Power_Control/Sleep").text
 		volume = root.find("./Main_Zone/Basic_Status/Vol/Lvl/Val").text
+		mute = root.find("./Main_Zone/Basic_Status/Vol/Mute").text
 		inputmode = root.find("./Main_Zone/Basic_Status/Input/Input_Sel").text
 
 		dev.updateStateOnServer("power", power)
 		dev.updateStateOnServer("sleep", sleep)
 		dev.updateStateOnServer("volume", volume)
+		dev.updateStateOnServer("mute", mute)
 		dev.updateStateOnServer("input", inputmode)
 
 	def setPower(self, pluginAction):
