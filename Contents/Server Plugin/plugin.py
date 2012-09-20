@@ -57,6 +57,30 @@ class Plugin(indigo.PluginBase):
 	def wake(self, pluginAction):
 		# set sleep to off, confirm and update local var
 		self.debugLog(u"wake called")
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		new_wake_state = 'On' if dev.states['wake']=='Off' else 'Off'
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+new_mute_state+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
+	def setMute(self, pluginAction, dev, newMuteState):
+		# set value of mute
+		self.debugLog(u"setMute called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		if newMuteState is None:
+			#need to pick up new mute state from action config
+			newMuteState = 'Off';
+
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+newMuteState+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
 
 	def toggleMute(self, pluginAction, dev):
 		# set sleep to off, confirm and update local var
@@ -66,10 +90,8 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
-		new_mute_state = 'On' if dev.states['mute']=='Off' else 'Off'
-		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+new_mute_state+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
-		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		newMuteState = 'On' if dev.states['mute']=='Off' else 'Off'
+		self.setMute(pluginAction, dev, newMuteState)
 
 	def setVolume(self, pluginAction, dev):
 		# set volume, confirm and update local var
