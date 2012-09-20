@@ -58,9 +58,18 @@ class Plugin(indigo.PluginBase):
 		# set sleep to off, confirm and update local var
 		self.debugLog(u"wake called")
 
-	def setVolume(self, pluginAction):
+	def setVolume(self, pluginAction, dev):
 		# set volume, confirm and update local var
 		self.debugLog(u"setVolume called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		new_level = pluginAction.props['txtvolume']
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+new_level+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
 
 	def getStatus(self, pluginAction, dev):
 		# get status from receiver, update locals
@@ -70,7 +79,8 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
-		root = xmitToReceiver( dev.pluginProps['txtip'], '<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>')
+		xml_string = '<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
 		power = root.find("./Main_Zone/Basic_Status/Power_Control/Power").text
 		sleep = root.find("./Main_Zone/Basic_Status/Power_Control/Sleep").text
 		volume = root.find("./Main_Zone/Basic_Status/Vol/Lvl/Val").text
