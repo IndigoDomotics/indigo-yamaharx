@@ -11,7 +11,19 @@ except ImportError:
     import xml.etree.ElementTree as ET
 
 def str2bool(v):
-  return v.lower() in ("yes", "true", "t", "1")
+	return v.lower() in ("yes", "true", "t", "1")
+
+def xmitToReceiver(receiverIp, xml_string):
+	url = 'http://'+receiverIp+'/YamahaRemoteControl/ctrl'
+
+	req = urllib2.Request(
+		url=url, 
+		data=xml_string, 
+		headers={'Content-Type': 'application/xml'})
+	resp = urllib2.urlopen(req)
+	status_xml = resp.read()
+	root = ET.fromstring(status_xml)
+	return root
 
 class Plugin(indigo.PluginBase):
 
@@ -58,17 +70,7 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
-		url = 'http://192.168.1.4/YamahaRemoteControl/ctrl'
-		xml_string = '<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>'
-
-		req = urllib2.Request(
-			url=url, 
-			data=xml_string, 
-			headers={'Content-Type': 'application/xml'})
-		resp = urllib2.urlopen(req)
-		status_xml = resp.read()
-		root = ET.fromstring(status_xml)
-
+		root = xmitToReceiver( dev.pluginProps['txtip'], '<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>')
 		power = root.find("./Main_Zone/Basic_Status/Power_Control/Power").text
 		sleep = root.find("./Main_Zone/Basic_Status/Power_Control/Sleep").text
 		volume = root.find("./Main_Zone/Basic_Status/Vol/Lvl/Val").text
