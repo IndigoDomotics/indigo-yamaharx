@@ -42,70 +42,6 @@ class Plugin(indigo.PluginBase):
 		self.debugLog(u"shutdown called")
 
 	# actions go here
-	def turnOn(self, pluginAction):
-		# set power to on, confirm and update local var
-		self.debugLog(u"turnOn called")
-
-	def turnOff(self, pluginAction):
-		# set power to off, confirm and update local var
-		self.debugLog(u"turnOff called")
-
-	def sleep(self, pluginAction):
-		# set sleep to on, confirm and update local var
-		self.debugLog(u"sleep called")
-
-	def wake(self, pluginAction):
-		# set sleep to off, confirm and update local var
-		self.debugLog(u"wake called")
-		if dev is None:
-			self.debugLog(u"no device defined")
-			return
-
-		new_wake_state = 'On' if dev.states['wake']=='Off' else 'Off'
-		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+new_mute_state+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
-		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
-
-	def setMute(self, pluginAction, dev, newMuteState):
-		# set value of mute
-		self.debugLog(u"setMute called")
-
-		if dev is None:
-			self.debugLog(u"no device defined")
-			return
-
-		if newMuteState is None:
-			#need to pick up new mute state from action config
-			newMuteState = 'Off';
-
-		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+newMuteState+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
-		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
-
-	def toggleMute(self, pluginAction, dev):
-		# set sleep to off, confirm and update local var
-		self.debugLog(u"toggleMute called")
-
-		if dev is None:
-			self.debugLog(u"no device defined")
-			return
-
-		newMuteState = 'On' if dev.states['mute']=='Off' else 'Off'
-		self.setMute(pluginAction, dev, newMuteState)
-
-	def setVolume(self, pluginAction, dev):
-		# set volume, confirm and update local var
-		self.debugLog(u"setVolume called")
-
-		if dev is None:
-			self.debugLog(u"no device defined")
-			return
-
-		new_level = pluginAction.props['txtvolume']
-		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+new_level+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
-		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
-
 	def getStatus(self, pluginAction, dev):
 		# get status from receiver, update locals
 		self.debugLog(u"getStatus called")
@@ -127,16 +63,117 @@ class Plugin(indigo.PluginBase):
 		dev.updateStateOnServer("volume", volume)
 		dev.updateStateOnServer("mute", mute)
 		dev.updateStateOnServer("input", inputmode)
+	
+	def setMute(self, pluginAction, dev, newStateVal):
+		# set value of mute
+		self.debugLog(u"setMute called")
 
-	def setPower(self, pluginAction):
-		# set power, confirm and update local var
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		if newStateVal is None:
+			#need to pick up new mute state from action config
+			newStateVal = 'Off';
+
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+newStateVal+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
+	def toggleMute(self, pluginAction, dev):
+		# toggle mute value, confirm and update local var
+		self.debugLog(u"toggleMute called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		newStateVal = 'On' if dev.states['mute']=='Off' else 'Off'
+		self.setMute(pluginAction, dev, newStateVal)
+
+	def setVolume(self, pluginAction, dev):
+		# set volume, confirm and update local var
+		self.debugLog(u"setVolume called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		newStateVal = pluginAction.props['txtvolume']
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+newStateVal+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
+	def setPower(self, pluginAction, dev, newStateVal):
+		# set value of power
 		self.debugLog(u"setPower called")
 
-	def setSleep(self, pluginAction):
-		# set sleep, confirm and update local var
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		if newStateVal is None:
+			#need to pick up new power state from action config
+			newStateVal = 'On';
+
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Power>'+newStateVal+'</Power></Power_Control></Main_Zone></YAMAHA_AV>'
+		self.debugLog(xml_string)
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
+	def togglePower(self, pluginAction, dev):
+		# toggle power value, confirm and update local var
+		self.debugLog(u"togglePower called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		newStateVal = 'On' if (dev.states['power']=='Standby' or dev.states['power']=='Off') else 'Standby'
+		self.setPower(pluginAction, dev, newStateVal)
+
+	def setSleep(self, pluginAction, dev, newStateVal):
+		# set value of sleep
 		self.debugLog(u"setSleep called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		if newStateVal is None:
+			#need to pick up new sleep state from action config
+			newStateVal = 'On';
+
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Sleep>'+newStateVal+'</Sleep></Power_Control></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
+	def toggleSleep(self, pluginAction, dev):
+		# toggle sleep value, confirm and update local var
+		self.debugLog(u"toggleSleep called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		newStateVal = 'On' if dev.states['sleep']=='Off' else 'Off'
+		self.setSleep(pluginAction, dev, newStateVal)
 
 	def setInput(self, pluginAction):
 		# change input, confirm and update local var
 		self.debugLog(u"setInput called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		newStateVal = pluginAction.props['newinput']
+
+		if newStateVal is None:
+			self.debugLog(u"no input selected")
+			return
+
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Basic_Status><Input><Input_Sel>'+newStateVal+'</Input></Input_Sel></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
 

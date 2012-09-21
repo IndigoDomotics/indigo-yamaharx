@@ -15,21 +15,13 @@
 		<Name>Toggle Mute</Name>
 		<CallbackMethod>toggleMute</CallbackMethod>
 	</Action>
-	<Action id="turnOn" deviceFilter="self">
-		<Name>Turn On</Name>
-		<CallbackMethod>turnOn</CallbackMethod>
+	<Action id="togglePower" deviceFilter="self">
+		<Name>Toggle Power</Name>
+		<CallbackMethod>togglePower</CallbackMethod>
 	</Action>
-	<Action id="turnOff" deviceFilter="self">
-		<Name>Turn Off</Name>
-		<CallbackMethod>turnOff</CallbackMethod>
-	</Action>
-	<Action id="sleep" deviceFilter="self">
-		<Name>Sleep</Name>
-		<CallbackMethod>sleep</CallbackMethod>
-	</Action>
-	<Action id="wake" deviceFilter="self">
-		<Name>Wake</Name>
-		<CallbackMethod>wake</CallbackMethod>
+	<Action id="toggleSleep" deviceFilter="self">
+		<Name>Toggle Sleep</Name>
+		<CallbackMethod>toggleSleep</CallbackMethod>
 	</Action>
 	<Action id="getStatus" deviceFilter="self">
 		<Name>Get Status</Name>
