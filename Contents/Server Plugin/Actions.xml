@@ -4,9 +4,28 @@
 		<Name>Set Volume</Name>
 		<CallbackMethod>setVolume</CallbackMethod>
 		<ConfigUI>
-			<SupportURL>http://www.chadfrancis.com</SupportURL>
 			<Field id="txtvolume" type="textfield" default="-30">
 				<Label>Level:</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="increaseVolume" deviceFilter="self">
+		<Name>Increase Volume</Name>
+		<CallbackMethod>increaseVolume</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtincrement" type="textfield" default="5">
+				<Label>Increment:</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="decreaseVolume" deviceFilter="self">
+		<Name>Decrease Volume</Name>
+		<CallbackMethod>decreaseVolume</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtincrement" type="textfield" default="5">
+				<Label>Increment:</Label>
 				<Description>in dB</Description>
 			</Field>
 		</ConfigUI>

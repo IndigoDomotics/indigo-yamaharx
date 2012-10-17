@@ -104,6 +104,38 @@ class Plugin(indigo.PluginBase):
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
 		self.getStatus(pluginAction, dev)
 
+	def increaseVolume(self, pluginAction, dev):
+		# increase volume, confirm and update local var
+		self.debugLog(u"increaseVolume called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		incrementVal = int(pluginAction.props['txtincrement'])
+		currentVol = int(dev.states['volume'])
+		newStateVal = currentVol+incrementVal
+		self.debugLog(str(newStateVal))
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+str(newStateVal)+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
+	def decreaseVolume(self, pluginAction, dev):
+		# decrease volume, confirm and update local var
+		self.debugLog(u"decreaseVolume called")
+
+		if dev is None:
+			self.debugLog(u"no device defined")
+			return
+
+		incrementVal = int(pluginAction.props['txtincrement'])
+		currentVol = int(dev.states['volume'])
+		newStateVal = currentVol-incrementVal
+		self.debugLog(str(newStateVal))
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+str(newStateVal)+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
+		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
+		self.getStatus(pluginAction, dev)
+
 	def setPower(self, pluginAction, dev, newStateVal):
 		# set value of power
 		self.debugLog(u"setPower called")
