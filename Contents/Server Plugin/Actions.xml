@@ -30,17 +30,56 @@
 			</Field>
 		</ConfigUI>
 	</Action>
+	<Action id="setMute" deviceFilter="self">
+		<Name>Set Mute</Name>
+		<CallbackMethod>setMute</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlmute" type="menu">
+				<Label>Set Mute</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
 	<Action id="toggleMute" deviceFilter="self">
 		<Name>Toggle Mute</Name>
 		<CallbackMethod>toggleMute</CallbackMethod>
+	</Action>
+	<Action id="setPower" deviceFilter="self">
+		<Name>Set Power</Name>
+		<CallbackMethod>setPower</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlpower" type="menu">
+				<Label>Set Power</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+					<Option value="Standby">Standby</Option>
+				</List>
+			</Field>
+		</ConfigUI>
 	</Action>
 	<Action id="togglePower" deviceFilter="self">
 		<Name>Toggle Power</Name>
 		<CallbackMethod>togglePower</CallbackMethod>
 	</Action>
-	<Action id="toggleSleep" deviceFilter="self">
-		<Name>Toggle Sleep</Name>
-		<CallbackMethod>toggleSleep</CallbackMethod>
+	<Action id="setSleep" deviceFilter="self">
+		<Name>Set Sleep</Name>
+		<CallbackMethod>setSleep</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlsleep" type="menu">
+				<Label>Set Sleep</Label>
+				<List>
+					<Option value="Off">Off</Option>
+					<Option value="n30">30</Option>
+					<Option value="n60">60</Option>
+					<Option value="n90">90</Option>
+					<Option value="n120">120</Option>
+				</List>
+			</Field>
+		</ConfigUI>
 	</Action>
 	<Action id="getStatus" deviceFilter="self">
 		<Name>Get Status</Name>

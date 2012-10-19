@@ -71,7 +71,7 @@ class Plugin(indigo.PluginBase):
 	def getStatus(self, pluginAction, dev):
 		self.updateStatus(dev)
 	
-	def setMute(self, pluginAction, dev, newStateVal):
+	def setMute(self, pluginAction, dev, newStateVal=None):
 		# set value of mute
 		self.debugLog(u"setMute called")
 
@@ -80,8 +80,7 @@ class Plugin(indigo.PluginBase):
 			return
 
 		if newStateVal is None:
-			#need to pick up new mute state from action config
-			newStateVal = 'Off';
+			newStateVal = pluginAction.props['ddlmute']
 
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+newStateVal+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
@@ -95,8 +94,9 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
-		newStateVal = 'On' if dev.states['mute']=='Off' else 'Off'
 		self.updateStatus(dev)
+		newStateVal = 'On' if dev.states['mute']=='Off' else 'Off'
+		self.setMute(pluginAction, dev, newStateVal)
 
 	def setVolume(self, pluginAction, dev):
 		# set volume, confirm and update local var
@@ -119,6 +119,7 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
+		self.updateStatus(dev)
 		incrementVal = int(pluginAction.props['txtincrement'])
 		currentVol = int(dev.states['volume'])
 		newStateVal = currentVol+incrementVal
@@ -135,10 +136,10 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
+		self.updateStatus(dev)
 		incrementVal = int(pluginAction.props['txtincrement'])
 		currentVol = int(dev.states['volume'])
 		newStateVal = currentVol-incrementVal
-		self.debugLog(str(newStateVal))
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+str(newStateVal)+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
 		self.updateStatus(dev)
@@ -152,11 +153,9 @@ class Plugin(indigo.PluginBase):
 			return
 
 		if newStateVal is None:
-			#need to pick up new power state from action config
-			newStateVal = 'On';
+			newStateVal = pluginAction.props['ddlpower']
 
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Power>'+newStateVal+'</Power></Power_Control></Main_Zone></YAMAHA_AV>'
-		self.debugLog(xml_string)
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
 		self.updateStatus(dev)
 
@@ -168,10 +167,11 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
+		self.updateStatus
 		newStateVal = 'On' if (dev.states['power']=='Standby' or dev.states['power']=='Off') else 'Standby'
 		self.setPower(pluginAction, dev, newStateVal)
 
-	def setSleep(self, pluginAction, dev, newStateVal):
+	def setSleep(self, pluginAction, dev):
 		# set value of sleep
 		self.debugLog(u"setSleep called")
 
@@ -179,24 +179,10 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
-		if newStateVal is None:
-			#need to pick up new sleep state from action config
-			newStateVal = 'On';
-
+		newStateVal = pluginAction.props['ddlsleep'].replace('n','')
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Sleep>'+newStateVal+'</Sleep></Power_Control></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
 		self.updateStatus(dev)
-
-	def toggleSleep(self, pluginAction, dev):
-		# toggle sleep value, confirm and update local var
-		self.debugLog(u"toggleSleep called")
-
-		if dev is None:
-			self.debugLog(u"no device defined")
-			return
-
-		newStateVal = 'On' if dev.states['sleep']=='Off' else 'Off'
-		self.setSleep(pluginAction, dev, newStateVal)
 
 	def setInput(self, pluginAction):
 		# change input, confirm and update local var
