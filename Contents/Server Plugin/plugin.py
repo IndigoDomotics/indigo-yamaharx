@@ -41,10 +41,12 @@ class Plugin(indigo.PluginBase):
 	def shutdown(self):
 		self.debugLog(u"shutdown called")
 
-	# actions go here
-	def getStatus(self, pluginAction, dev):
+	def deviceStartComm(self, dev):
+		self.updateStatus(dev)
+
+	def updateStatus(self, dev):
 		# get status from receiver, update locals
-		self.debugLog(u"getStatus called")
+		self.debugLog(u"updating status...")
 
 		if dev is None:
 			self.debugLog(u"no device defined")
@@ -63,6 +65,11 @@ class Plugin(indigo.PluginBase):
 		dev.updateStateOnServer("volume", volume)
 		dev.updateStateOnServer("mute", mute)
 		dev.updateStateOnServer("input", inputmode)
+
+
+	# actions go here
+	def getStatus(self, pluginAction, dev):
+		self.updateStatus(dev)
 	
 	def setMute(self, pluginAction, dev, newStateVal):
 		# set value of mute
@@ -78,7 +85,7 @@ class Plugin(indigo.PluginBase):
 
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+newStateVal+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		self.updateStatus(dev)
 
 	def toggleMute(self, pluginAction, dev):
 		# toggle mute value, confirm and update local var
@@ -89,7 +96,7 @@ class Plugin(indigo.PluginBase):
 			return
 
 		newStateVal = 'On' if dev.states['mute']=='Off' else 'Off'
-		self.setMute(pluginAction, dev, newStateVal)
+		self.updateStatus(dev)
 
 	def setVolume(self, pluginAction, dev):
 		# set volume, confirm and update local var
@@ -102,7 +109,7 @@ class Plugin(indigo.PluginBase):
 		newStateVal = pluginAction.props['txtvolume']
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+newStateVal+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		self.updateStatus(dev)
 
 	def increaseVolume(self, pluginAction, dev):
 		# increase volume, confirm and update local var
@@ -118,7 +125,7 @@ class Plugin(indigo.PluginBase):
 		self.debugLog(str(newStateVal))
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+str(newStateVal)+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		self.updateStatus(dev)
 
 	def decreaseVolume(self, pluginAction, dev):
 		# decrease volume, confirm and update local var
@@ -134,7 +141,7 @@ class Plugin(indigo.PluginBase):
 		self.debugLog(str(newStateVal))
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+str(newStateVal)+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		self.updateStatus(dev)
 
 	def setPower(self, pluginAction, dev, newStateVal):
 		# set value of power
@@ -151,7 +158,7 @@ class Plugin(indigo.PluginBase):
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Power>'+newStateVal+'</Power></Power_Control></Main_Zone></YAMAHA_AV>'
 		self.debugLog(xml_string)
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		self.updateStatus(dev)
 
 	def togglePower(self, pluginAction, dev):
 		# toggle power value, confirm and update local var
@@ -178,7 +185,7 @@ class Plugin(indigo.PluginBase):
 
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Sleep>'+newStateVal+'</Sleep></Power_Control></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		self.updateStatus(dev)
 
 	def toggleSleep(self, pluginAction, dev):
 		# toggle sleep value, confirm and update local var
@@ -199,7 +206,7 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"no device defined")
 			return
 
-		newStateVal = pluginAction.props['newinput']
+		newStateVal = pluginAction.props['newinput'].upper().replace(".","/").replace("_"," ")
 
 		if newStateVal is None:
 			self.debugLog(u"no input selected")
@@ -207,5 +214,5 @@ class Plugin(indigo.PluginBase):
 
 		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Basic_Status><Input><Input_Sel>'+newStateVal+'</Input></Input_Sel></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev.pluginProps['txtip'], xml_string)
-		self.getStatus(pluginAction, dev)
+		self.updateStatus(dev)
 

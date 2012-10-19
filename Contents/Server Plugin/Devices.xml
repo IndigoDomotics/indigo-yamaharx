@@ -4,7 +4,7 @@
         <Name>Yamaha RX Series Receiver</Name>
         <ConfigUI>
             <Field id="txtip" type="textfield" default="192.168.1.4">
-                <Label>Receiver IP Address:</Label>
+                <Label>Receiver IP Address</Label>
                 <Description>enter the ip address of your reciever</Description>
             </Field>
         </ConfigUI>
@@ -38,25 +38,25 @@
             <State id="input">
                 <ValueType>
                     <List>
-                        <Option value="SIRIUS">SIRIUS</Option>
-                        <Option value="XM">XM</Option>
-                        <Option value="TUNER">TUNER</Option>
-                        <Option value="MULTI CH">MULTI CH</Option>
-                        <Option value="PHONO">PHONO</Option>
-                        <Option value="CD">CD</Option>
-                        <Option value="TV">TV</Option>
-                        <Option value="MD/CD-R">MD/CD-R</Option>
-                        <Option value="BD/HD DVD">BD/HD DVD</Option>
-                        <Option value="DVD">DVD</Option>
-                        <Option value="CBL/SAT">CBL/SAT</Option>
-                        <Option value="DVR">DVR</Option>
-                        <Option value="VCR">VCR</Option>
-                        <Option value="V-AUX">V-AUX</Option>
-                        <Option value="DOCK">DOCK</Option>
-                        <Option value="PC/MCX">PC/MCX</Option>
-                        <Option value="NET RADIO">NET RADIO</Option>
-                        <Option value="Rhapsody">Rhapsody</Option>
-                        <Option value="USB">USB</Option>
+                        <Option value="sirius">SIRIUS</Option>
+                        <Option value="xm">XM</Option>
+                        <Option value="tuner">TUNER</Option>
+                        <Option value="multi_ch">MULTI CH</Option>
+                        <Option value="phono">PHONO</Option>
+                        <Option value="cd">CD</Option>
+                        <Option value="tv">TV</Option>
+                        <Option value="md.cd-r">MD/CD-R</Option>
+                        <Option value="bd.hd_dvd">BD/HD DVD</Option>
+                        <Option value="dvd">DVD</Option>
+                        <Option value="cbl.sat">CBL/SAT</Option>
+                        <Option value="dvr">DVR</Option>
+                        <Option value="vcr">VCR</Option>
+                        <Option value="v-aux">V-AUX</Option>
+                        <Option value="dock">DOCK</Option>
+                        <Option value="pc.mcx">PC/MCX</Option>
+                        <Option value="net_radio">NET RADIO</Option>
+                        <Option value="rhapsody">RHAPSODY</Option>
+                        <Option value="usb">USB</Option>
                     </List>
                 </ValueType>
                 <TriggerLabel>Input</TriggerLabel>

@@ -5,7 +5,7 @@
 		<CallbackMethod>setVolume</CallbackMethod>
 		<ConfigUI>
 			<Field id="txtvolume" type="textfield" default="-30">
-				<Label>Level:</Label>
+				<Label>Level</Label>
 				<Description>in dB</Description>
 			</Field>
 		</ConfigUI>
@@ -15,7 +15,7 @@
 		<CallbackMethod>increaseVolume</CallbackMethod>
 		<ConfigUI>
 			<Field id="txtincrement" type="textfield" default="5">
-				<Label>Increment:</Label>
+				<Label>Increment</Label>
 				<Description>in dB</Description>
 			</Field>
 		</ConfigUI>
@@ -25,7 +25,7 @@
 		<CallbackMethod>decreaseVolume</CallbackMethod>
 		<ConfigUI>
 			<Field id="txtincrement" type="textfield" default="5">
-				<Label>Increment:</Label>
+				<Label>Increment</Label>
 				<Description>in dB</Description>
 			</Field>
 		</ConfigUI>
