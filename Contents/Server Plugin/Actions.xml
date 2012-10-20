@@ -55,7 +55,6 @@
 				<Label>Set Power</Label>
 				<List>
 					<Option value="On">On</Option>
-					<Option value="Off">Off</Option>
 					<Option value="Standby">Standby</Option>
 				</List>
 			</Field>
