@@ -1,14 +1,11 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-####################
-# Copyright (c) 2012, Chad Francis. All rights reserved.
-# http://www.chadfrancis.com
 
 import httplib, urllib2, sys, os
 try:
-    import xml.etree.cElementTree as ET
+	import xml.etree.cElementTree as ET
 except ImportError:
-    import xml.etree.ElementTree as ET
+	import xml.etree.ElementTree as ET
 
 def str2bool(v):
 	return v.lower() in ("yes", "true", "t", "1")
