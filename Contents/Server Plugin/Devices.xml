@@ -3,11 +3,12 @@
 	<Device type="custom" id="receiver">
 		<Name>Yamaha RX Series Receiver</Name>
 		<ConfigUI>
-			<Field id="txtip" type="textfield" default="192.168.1.4">
+			<Field id="address" type="textfield" default="192.168.1.4">
 				<Label>Receiver IP Address</Label>
-				<Description>enter the ip address of your reciever</Description>
+				<Description>enter the ip address of your receiver</Description>
 			</Field>
 		</ConfigUI>
+		<UiDisplayStateId>power</UiDisplayStateId>
 		<States>
 			<State id="power">
 				<ValueType>

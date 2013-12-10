@@ -11,7 +11,7 @@ def str2bool(v):
 	return v.lower() in ("yes", "true", "t", "1")
 
 def xmitToReceiver(dev, xml_string):
-	url = 'http://'+dev.pluginProps['txtip']+'/YamahaRemoteControl/ctrl'
+	url = 'http://'+dev.pluginProps['address']+'/YamahaRemoteControl/ctrl'
 
 	req = urllib2.Request(
 		url=url, 
@@ -41,6 +41,18 @@ class Plugin(indigo.PluginBase):
 	def deviceStartComm(self, dev):
 		self.updateStatus(dev)
 
+	def runConcurrentThread(self):
+		self.debugLog(u"started polling")
+		try:
+			while True:
+				# update the status on each instance every 10 seconds
+				self.sleep(10)
+				for dev in indigo.devices.iter("self"):
+					# call the update method with the device instance
+					self.updateStatus(dev)
+		except self.StopThread:
+			pass
+
 	# helper methods, these mostly serve to facilitate calls to the device
 
 	def updateStatus(self, dev):
@@ -60,11 +72,12 @@ class Plugin(indigo.PluginBase):
 		mute = root.find("./Main_Zone/Basic_Status/Vol/Mute").text
 		inputmode = root.find("./Main_Zone/Basic_Status/Input/Input_Sel").text
 
-		dev.updateStateOnServer("power", power)
-		dev.updateStateOnServer("sleep", sleep)
-		dev.updateStateOnServer("volume", volume)
-		dev.updateStateOnServer("mute", mute)
-		dev.updateStateOnServer("input", inputmode)
+		dev.updateStateOnServer("power", value=power)
+		dev.updateStateOnServer("sleep", value=sleep)
+		dev.updateStateOnServer("volume", value=volume)
+		self.debugLog(u"mute value is: "+mute)
+		dev.updateStateOnServer("mute", value=mute, uiValue="farts")
+		dev.updateStateOnServer("input", value=inputmode)
 
 	def putMute(self, dev, val):
 		if dev is None:
@@ -135,6 +148,7 @@ class Plugin(indigo.PluginBase):
 	# actions go here
 	def getStatus(self, pluginAction, dev):
 		self.updateStatus(dev)
+		self.getDeviceDisplayStateId(dev)
 	
 	def setMute(self, pluginAction, dev):
 		self.debugLog(u"setMute called")
