@@ -1,19 +1,35 @@
-Indigo - Yamaha RX Plugin
-====
+indigo-yamaharx
+===============
 
-Indigo plugin to control Yamaha RX Series receivers
+[Indigo](http://www.perceptiveautomation.com/indigo/index.html) plugin - basic control of Yamaha RX series a/v receivers
 
-Installation
-====
+### Requirements
 
--Download the latest version from here:
-	https://github.com/discgolfer1138/indigo_yamaharx/releases
+1. [Indigo 6](http://www.perceptiveautomation.com/indigo/index.html) or later (pro version only)
+2. Yamaha RX Series A/V Receiver (needs to be accessible via network from the box hosting your Indigo server)
 
--Copy the YamahaRx.indigoPlugin file to the following location:
-	~/Library/Application Support/Perceptive Automation/Indigo [5/6]/Plugins
+### Installation Instructions
 
--Restart your Indigo Server
+1. Download latest release [here](https://github.com/discgolfer1138/indigo-yamaharx/releases)
+2. Follow [standard plugin installation process](http://bit.ly/1e1Vc7b)
 
-Notes
-====
-This plugin is currently in Alpha and has only been tested with the Yamaha RX-V3900
+### Compatible Hardware
+This plugin has only been tested with the Yamaha RX-V3900
+
+### Actions Supported
+* Set Volume
+* Increase Volume
+* Decrease Volume
+* Set Mute
+* Toggle Mute
+* Set Power
+* Toggle Power
+* Set Sleep
+* Get Status
+
+### States Surfaced
+* power (On, Standby)
+* sleep (Off,30,60,90,120)
+* volume (int)
+* mute (bool)
+* input (sirius, xm, tuner, multi_ch, phono, cd, tv, md.cd-r, bd.hd_dvd, dvd, cbl.sat, dvr, vcr, v-aux, dock, pc.mcx, net_radio, rhapsody, usb)
