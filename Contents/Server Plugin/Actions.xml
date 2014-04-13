@@ -1,5 +1,22 @@
 <?xml version="1.0"?>
 <Actions>
+	<Action id="setPower" deviceFilter="self">
+		<Name>Set Power</Name>
+		<CallbackMethod>setPower</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlpower" type="menu">
+				<Label>Set Power</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Standby">Standby</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="togglePower" deviceFilter="self">
+		<Name>Toggle Power</Name>
+		<CallbackMethod>togglePower</CallbackMethod>
+	</Action>
 	<Action id="setVolume" deviceFilter="self">
 		<Name>Set Volume</Name>
 		<CallbackMethod>setVolume</CallbackMethod>
@@ -25,7 +42,7 @@
 		<CallbackMethod>decreaseVolume</CallbackMethod>
 		<ConfigUI>
 			<Field id="txtincrement" type="textfield" default="5">
-				<Label>Increment</Label>
+				<Label>Decrement</Label>
 				<Description>in dB</Description>
 			</Field>
 		</ConfigUI>
@@ -47,22 +64,356 @@
 		<Name>Toggle Mute</Name>
 		<CallbackMethod>toggleMute</CallbackMethod>
 	</Action>
-	<Action id="setPower" deviceFilter="self">
-		<Name>Set Power</Name>
-		<CallbackMethod>setPower</CallbackMethod>
+	<Action id="setInput" deviceFilter="self">
+		<Name>Set Input</Name>
+		<CallbackMethod>setInput</CallbackMethod>
 		<ConfigUI>
-			<Field id="ddlpower" type="menu">
-				<Label>Set Power</Label>
+			<Field id="newinput" type="menu">
+				<Label>Set Input</Label>
 				<List>
-					<Option value="On">On</Option>
-					<Option value="Standby">Standby</Option>
+					<Option value="hdmi1">HDMI1</Option>
+					<Option value="hdmi2">HDMI2</Option>
+					<Option value="hdmi3">HDMI3</Option>
+					<Option value="hdmi4">HDMI4</Option>
+					<Option value="hdmi5">HDMI5</Option>
+					<Option value="airplay">AirPlay</Option>
+					<Option value="net_radio">NET RADIO</Option>
+					<Option value="server">SERVER</Option>
+					<Option value="usb">USB</Option>
+					<Option value="tuner">TUNER</Option>
+					<Option value="v-aux">V-AUX</Option>
+					<Option value="spotify">Spotify</Option>
+					<Option value="napster">Napster</Option>
+					<Option value="av1">AV1</Option>
+					<Option value="av2">AV2</Option>
+					<Option value="av3">AV3</Option>
+					<Option value="av4">AV4</Option>
+					<Option value="av5">AV5</Option>
+					<Option value="av6">AV6</Option>
+					<Option value="audio1">AUDIO1</Option>
+					<Option value="audio2">AUDIO2</Option>
+					<Option value="phono">PHONO</Option>
 				</List>
 			</Field>
 		</ConfigUI>
 	</Action>
-	<Action id="togglePower" deviceFilter="self">
-		<Name>Toggle Power</Name>
-		<CallbackMethod>togglePower</CallbackMethod>
+	<Action id="setScene" deviceFilter="self">
+		<Name>Set Scene</Name>
+		<CallbackMethod>setScene</CallbackMethod>
+		<ConfigUI>
+			<Field id="scene" type="menu">
+				<Label>Set Scene</Label>
+				<List>
+					<Option value="1">Scene 1</Option>
+					<Option value="2">Scene 2</Option>
+					<Option value="3">Scene 3</Option>
+					<Option value="4">Scene 4</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="getStatus" deviceFilter="self">
+		<Name>Get Status</Name>
+		<CallbackMethod>getStatus</CallbackMethod>
+	</Action>
+	<Action id="setSwtrim" deviceFilter="self">
+		<Name>Set Subwoofer-Trim</Name>
+		<CallbackMethod>setSwtrim</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtswtrim" type="textfield" default="5">
+				<Label>Level</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="increaseSwtrim" deviceFilter="self">
+		<Name>Increase Subwoofer-Trim</Name>
+		<CallbackMethod>increaseSwtrim</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtswincrement" type="textfield" default="5">
+				<Label>Increment</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="decreaseSwtrim" deviceFilter="self">
+		<Name>Decrease Subwoofer-Trim</Name>
+		<CallbackMethod>decreaseSwtrim</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtswincrement" type="textfield" default="5">
+				<Label>Decrement</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setEnhancer" deviceFilter="self">
+		<Name>Set Enhancer</Name>
+		<CallbackMethod>setEnhancer</CallbackMethod>
+		<ConfigUI>
+			<Field id="enh" type="menu">
+				<Label>Set Enhancer</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleEnhancer" deviceFilter="self">
+		<Name>Toggle Enhancer</Name>
+		<CallbackMethod>toggleEnhancer</CallbackMethod>
+	</Action>
+	<Action id="setStraight" deviceFilter="self">
+		<Name>Set Straight</Name>
+		<CallbackMethod>setStraight</CallbackMethod>
+		<ConfigUI>
+			<Field id="straight" type="menu">
+				<Label>Set Straight</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleStraight" deviceFilter="self">
+		<Name>Toggle Straight</Name>
+		<CallbackMethod>toggleStraight</CallbackMethod>
+	</Action>
+	<Action id="setDSPProg" deviceFilter="self">
+		<Name>Set DSP Program</Name>
+		<CallbackMethod>setDSPProg</CallbackMethod>
+		<ConfigUI>
+			<Field id="newdspprog" type="menu">
+				<Label>Set DSP Program</Label>
+				<List>
+					<Option value="Hall_in_Munich">Hall in Munich</Option>
+					<Option value="Hall_in_Vienna">Hall in Vienna</Option>
+					<Option value="Chamber">Chamber</Option>
+					<Option value="Cellar_Club">Cellar Club</Option>
+					<Option value="The_Roxy_Theatre">The Roxy Theatre</Option>
+					<Option value="The_Bottom_Line">The Bottom Line</Option>
+					<Option value="Sports">Sports</Option>
+					<Option value="Action_Game">Action Game</Option>
+					<Option value="Roleplaying_Game">Roleplaying Game</Option>
+					<Option value="Music_Video">Music Video</Option>
+					<Option value="Standard">Standard</Option>
+					<Option value="Spectacle">Spectacle</Option>
+					<Option value="Sci-Fi">Sci-Fi</Option>
+					<Option value="Adventure">Adventure</Option>
+					<Option value="Drama">Drama</Option>
+					<Option value="Mono_Movie">Mono Movie</Option>
+					<Option value="twoch_Stereo">2ch Stereo</Option>
+					<Option value="sevench_Stereo">7ch Stereo</Option>
+					<Option value="Surround_Decoder">Surround Decoder</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="set3dcinema" deviceFilter="self">
+		<Name>Set 3D Cinema DSP</Name>
+		<CallbackMethod>set3dcinema</CallbackMethod>
+		<ConfigUI>
+			<Field id="threedcinema" type="menu">
+				<Label>Set 3D Cinema DSP</Label>
+				<List>
+					<Option value="Auto">Auto</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggle3dcinema" deviceFilter="self">
+		<Name>Toggle 3D Cinema DSP</Name>
+		<CallbackMethod>toggle3dcinema</CallbackMethod>
+	</Action>
+	<Action id="setBass" deviceFilter="self">
+		<Name>Set Bass</Name>
+		<CallbackMethod>setBass</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtbass" type="textfield" default="0">
+				<Label>Level</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="increaseBass" deviceFilter="self">
+		<Name>Increase Bass</Name>
+		<CallbackMethod>increaseBass</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtincbass" type="textfield" default="5">
+				<Label>Increment</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="decreaseBass" deviceFilter="self">
+		<Name>Decrease Bass</Name>
+		<CallbackMethod>decreaseBass</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtdecbass" type="textfield" default="5">
+				<Label>Decrement</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setTrebble" deviceFilter="self">
+		<Name>Set Trebble</Name>
+		<CallbackMethod>setTrebble</CallbackMethod>
+		<ConfigUI>
+			<Field id="txttrebble" type="textfield" default="0">
+				<Label>Level</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="increaseTrebble" deviceFilter="self">
+		<Name>Increase Trebble</Name>
+		<CallbackMethod>increaseTrebble</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtinctrebble" type="textfield" default="5">
+				<Label>Increment</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="decreaseTrebble" deviceFilter="self">
+		<Name>Decrease Trebble</Name>
+		<CallbackMethod>decreaseTrebble</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtdectrebble" type="textfield" default="5">
+				<Label>Decrement</Label>
+				<Description>in dB</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setPuredirect" deviceFilter="self">
+		<Name>Set Pure Direct</Name>
+		<CallbackMethod>setPuredirect</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtpuredirect" type="menu">
+				<Label>Set Pure Direct</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="togglePuredirect" deviceFilter="self">
+		<Name>Toggle Pure Direct</Name>
+		<CallbackMethod>togglePuredirect</CallbackMethod>
+	</Action>
+	<Action id="setDlglift" deviceFilter="self">
+		<Name>Set Dialogue Lift</Name>
+		<CallbackMethod>setDlglift</CallbackMethod>
+		<ConfigUI>
+			<Field id="dlglift" type="textfield" default="0">
+				<Label>Level</Label>
+				<Description>0 - 5</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="increaseDlglift" deviceFilter="self">
+		<Name>Increase Dialogue Lift</Name>
+		<CallbackMethod>increaseDlglift</CallbackMethod>
+		<ConfigUI>
+			<Field id="incdlglift" type="textfield" default="0">
+				<Label>Increment</Label>
+				<Description>0 - 5</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="decreaseDlglift" deviceFilter="self">
+		<Name>Decrease Dialogue Lift</Name>
+		<CallbackMethod>decreaseDlglift</CallbackMethod>
+		<ConfigUI>
+			<Field id="decdlglift" type="textfield" default="0">
+				<Label>Decrement</Label>
+				<Description>0 - 5</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setDlglvl" deviceFilter="self">
+		<Name>Set Dialogue Level</Name>
+		<CallbackMethod>setDlglvl</CallbackMethod>
+		<ConfigUI>
+			<Field id="dlglvl" type="textfield" default="0">
+				<Label>Level</Label>
+				<Description>0 - 3</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="increaseDlglvl" deviceFilter="self">
+		<Name>Increase Dialogue Level</Name>
+		<CallbackMethod>increaseDlglvl</CallbackMethod>
+		<ConfigUI>
+			<Field id="incdlglvl" type="textfield" default="0">
+				<Label>Increment</Label>
+				<Description>0 - 3</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="decreaseDlglvl" deviceFilter="self">
+		<Name>Decrease Dialogue Level</Name>
+		<CallbackMethod>decreaseDlglvl</CallbackMethod>
+		<ConfigUI>
+			<Field id="decdlglvl" type="textfield" default="0">
+				<Label>Decrement</Label>
+				<Description>0 - 3</Description>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setAdaptivedrc" deviceFilter="self">
+		<Name>Set Adaptive DRC</Name>
+		<CallbackMethod>setAdaptivedrc</CallbackMethod>
+		<ConfigUI>
+			<Field id="adrc" type="menu">
+				<Label>Set Adaptive DRC</Label>
+				<List>
+					<Option value="Auto">Auto</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleAdaptivedrc" deviceFilter="self">
+		<Name>Toggle Adaptive DRC</Name>
+		<CallbackMethod>toggleAdaptivedrc</CallbackMethod>
+	</Action>
+	<Action id="setHdmiout1" deviceFilter="self">
+		<Name>Set HDMI Out 1</Name>
+		<CallbackMethod>setHdmiout1</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtho1" type="menu">
+				<Label>Set HDMI Out 1</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleHdmiout1" deviceFilter="self">
+		<Name>Toggle HDMI Out 1</Name>
+		<CallbackMethod>toggleHdmiout1</CallbackMethod>
+	</Action>
+	<Action id="setHdmiout2" deviceFilter="self">
+		<Name>Set HDMI Out 2</Name>
+		<CallbackMethod>setHdmiout2</CallbackMethod>
+		<ConfigUI>
+			<Field id="txtho2" type="menu">
+				<Label>Set HDMI Out 2</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleHdmiout2" deviceFilter="self">
+		<Name>Toggle HDMI Out 2</Name>
+		<CallbackMethod>toggleHdmiout2</CallbackMethod>
 	</Action>
 	<Action id="setSleep" deviceFilter="self">
 		<Name>Set Sleep</Name>
@@ -80,8 +431,184 @@
 			</Field>
 		</ConfigUI>
 	</Action>
-	<Action id="getStatus" deviceFilter="self">
-		<Name>Get Status</Name>
-		<CallbackMethod>getStatus</CallbackMethod>
+	<Action id="setMenu" deviceFilter="self">
+		<Name>Set Menu</Name>
+		<CallbackMethod>setMenu</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlmenu" type="menu">
+				<Label>Set Menu</Label>
+				<List>
+					<Option value="Display">Display</Option>
+					<Option value="On_Screen">On Screen</Option>
+					<Option value="Option">Option</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setCursor" deviceFilter="self">
+		<Name>Set Cursor</Name>
+		<CallbackMethod>setCursor</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlcursor" type="menu">
+				<Label>Set Cursor</Label>
+				<List>
+					<Option value="Up">Up</Option>
+					<Option value="Down">Down</Option>
+					<Option value="Left">Left</Option>
+					<Option value="Right">Right</Option>
+					<Option value="Sel">Select</Option>
+					<Option value="Return">Return</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setPage" deviceFilter="self">
+		<Name>Set Page</Name>
+		<CallbackMethod>setPage</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlpage" type="menu">
+				<Label>Set Page</Label>
+				<List>
+					<Option value="Up">Up</Option>
+					<Option value="Down">Down</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setDirSelLine" deviceFilter="self">
+		<Name>Direct Select Line</Name>
+		<CallbackMethod>setDirSelLine</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddllinesel" type="menu">
+				<Label>Direct Select Line</Label>
+				<List>
+					<Option value="s1">1</Option>
+					<Option value="s2">2</Option>
+					<Option value="s3">3</Option>
+					<Option value="s4">4</Option>
+					<Option value="s5">5</Option>
+					<Option value="s6">6</Option>
+					<Option value="s7">7</Option>
+					<Option value="s8">8</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="setTransport" deviceFilter="self">
+		<Name>Set Transport</Name>
+		<CallbackMethod>setTransport</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddltrans" type="menu">
+				<Label>Set Transport</Label>
+				<List>
+					<Option value="Play">Play</Option>
+					<Option value="Pause">Pause</Option>
+					<Option value="Stop">Stop</Option>
+					<Option value="Skip_Rev">Skip Rev</Option>
+					<Option value="Skip_Fwd">Skip Fwd</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="togglePlayPause" deviceFilter="self">
+		<Name>Toggle Play-Pause</Name>
+		<CallbackMethod>togglePlayPause</CallbackMethod>
+	</Action>
+	<Action id="setShuffle" deviceFilter="self">
+		<Name>Set Shuffle</Name>
+		<CallbackMethod>setShuffle</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlshuffle" type="menu">
+				<Label>Set Shuffle</Label>
+				<List>
+					<Option value="On">On</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleShuffle" deviceFilter="self">
+		<Name>Toggle Shuffle</Name>
+		<CallbackMethod>toggleShuffle</CallbackMethod>
+	</Action>
+	<Action id="setRepeat" deviceFilter="self">
+		<Name>Set Repeat</Name>
+		<CallbackMethod>setRepeat</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlrepeat" type="menu">
+				<Label>Set Repeat</Label>
+				<List>
+					<Option value="All">All</Option>
+					<Option value="One">One</Option>
+					<Option value="Off">Off</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleRepeat" deviceFilter="self">
+		<Name>Toggle Repeat</Name>
+		<CallbackMethod>toggleRepeat</CallbackMethod>
+	</Action>
+	<Action id="setBand" deviceFilter="self">
+		<Name>Set Band</Name>
+		<CallbackMethod>setBand</CallbackMethod>
+		<ConfigUI>
+			<Field id="selband" type="menu">
+				<Label>Set Band</Label>
+				<List>
+					<Option value="FM">FM</Option>
+					<Option value="AM">AM</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleBand" deviceFilter="self">
+		<Name>Toggle Band</Name>
+		<CallbackMethod>toggleBand</CallbackMethod>
+	</Action>
+	<Action id="setStereo" deviceFilter="self">
+		<Name>Set Stereo</Name>
+		<CallbackMethod>setStereo</CallbackMethod>
+		<ConfigUI>
+			<Field id="selstereo" type="menu">
+				<Label>Set Stereo</Label>
+				<List>
+					<Option value="Auto">Auto</Option>
+					<Option value="Mono">Mono</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="toggleStereo" deviceFilter="self">
+		<Name>Toggle Stereo</Name>
+		<CallbackMethod>toggleStereo</CallbackMethod>
+	</Action>
+	<Action id="presetChange" deviceFilter="self">
+		<Name>Preset Change</Name>
+		<CallbackMethod>presetChange</CallbackMethod>
+		<ConfigUI>
+			<Field id="prech" type="menu">
+				<Label>Preset Change</Label>
+				<List>
+					<Option value="Down">Down</Option>
+					<Option value="Up">Up</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>
+	<Action id="chSearch" deviceFilter="self">
+		<Name>Channel Search</Name>
+		<CallbackMethod>chSearch</CallbackMethod>
+		<ConfigUI>
+			<Field id="search" type="menu">
+				<Label>Channel Search</Label>
+				<List>
+					<Option value="Down">Down</Option>
+					<Option value="Up">Up</Option>
+					<Option value="Auto_Down">Auto Down</Option>
+					<Option value="Auto_Up">Auto Up</Option>
+				</List>
+			</Field>
+		</ConfigUI>
 	</Action>
 </Actions>

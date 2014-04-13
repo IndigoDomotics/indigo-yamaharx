@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>PluginVersion</key>
-	<string>0.1.1</string>
+	<string>0.1.2</string>
 	<key>ServerApiVersion</key>
 	<string>1.0</string>
 	<key>IwsApiVersion</key>
 	<string>1.0.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>Yamaha Rx Receiver</string>
+	<string>Yamaha RX-Vx75 Receiver</string>
 	<key>CFBundleIdentifier</key>
 	<string>io.thechad.indigoplugin.yamaharx</string>
 	<key>CFBundleVersion</key>

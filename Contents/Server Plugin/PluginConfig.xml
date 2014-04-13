@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <PluginConfig>
 <Field id="lblFoo" type="label">
-	<Label>the cake is a lie</Label>
+	<Label>the cake is a lie - and I am Santa</Label>
 </Field>
 </PluginConfig>
