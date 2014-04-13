@@ -6,7 +6,7 @@ indigo-yamaharx
 ### Requirements
 
 1. [Indigo 6](http://www.perceptiveautomation.com/indigo/index.html) or later (pro version only)
-2. Yamaha RX-Vx75 Series A/V Receiver (needs to be accessible via network from the box hosting your Indigo server)
+2. Yamaha RX-V Series A/V Receiver (needs to be accessible via network from the box hosting your Indigo server)
 
 ### Installation Instructions
 
@@ -14,59 +14,39 @@ indigo-yamaharx
 2. Follow [standard plugin installation process](http://bit.ly/1e1Vc7b)
 
 ### Compatible Hardware
-This plugin has only been tested with the Yamaha RX-V3900
+
+while the plugin may be compatible with other models, it has only been tested on the following:
+
+* Yamaha RX-V3900
+* Yamaha RX-Vx75
 
 ### Actions Supported
-* Set Volume
-* Increase Volume
-* Decrease Volume
-* Set Mute
-* Toggle Mute
-* Set Power
-* Toggle Power
+* Set/Toggle Power
+* Set/Increase/Decrease Volume
+* Set/Toggle Mute
 * Set Sleep
 * Set Input
 * Set Scene
-* Set Bass
-* Increase Bass
-* Decrase Bass
-* Set Trebble
-* Increase Trebble
-* Decrease Trebble
-* Set SW-Trim
-* Increase SW-Trim
-* Decrease SW-Trim
-* Set DialogueLift
-* Increase DialogueLift
-* Decrease DialogueLift
-* Set DialogueLevel
-* Increase DialogueLevel
-* Decrease DialogueLevel
+* Set/Increase/Decrease Bass
+* Set/Increase/Decrease Treble
+* Set/Increase/Decrease SW-Trim
+* Set/Increase/Decrease DialogueLift
+* Set/Increase/Decrease DialogueLevel
 * Set DSP Program
-* Set DSP Enhancer
-* Toggle DSP Enhancer
-* Set DSP 3D Cinema
-* Toggle DSP 3D Cinema
-* Set PureDirect
-* Toggle PureDirect
-* Set Adaptive DRC
-* Toggle Adaptive DRC
-* Set HDMI Out 1
-* Toggle HDMI Out 1
-* Set HDMI Out 2
-* Toggle HDMI Out 2
+* Set/Toggle DSP Enhancer
+* Set/Toggle DSP 3D Cinema
+* Set/Toggle PureDirect
+* Set/Toggle Adaptive DRC
+* Set/Toggle HDMI Out 1
+* Set/Toggle HDMI Out 2
 * Set Transport (Play/Pause/Stop/Skip Rev/Skip Fwd)
 * Toggle Play/Pause
-* Set Repeat
-* Toggle Repeat
-* Set Shuffle
-* Toggle Shuffle
+* Set/Toggle Repeat
+* Set/Toggle Shuffle
 * Set Line
 * Set Page
-* Set Band (Tuner: FM/AM)
-* Toggle Band (Tuner: FM/AM)
-* Set Stereo (Tuner)
-* Toggle Stereo (Tuner)
+* Set/Toggle Band (Tuner: FM/AM)
+* Set/Toggle Stereo (Tuner)
 * Change Preset (Tuner: Up/Down)
 * Search Channel (Tuner: Down/Up/Auto Down/Auto Up)
 * Get Status
@@ -77,7 +57,7 @@ This plugin has only been tested with the Yamaha RX-V3900
 * volume (int)
 * mute (bool)
 * bass (int)
-* trebble (int)
+* treble (int)
 * SW-trim
 * dialogue lift
 * dialogue level
