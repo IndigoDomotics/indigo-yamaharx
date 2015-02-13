@@ -127,7 +127,7 @@ class Plugin(indigo.PluginBase):
 			self.debugLog(u"value not defined")
 			return
 
-		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Basic_Status><Input><Input_Sel>'+val+'</Input></Input_Sel></Main_Zone></YAMAHA_AV>'
+		xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Input><Input_Sel>'+val+'</Input_Sel></Input></Main_Zone></YAMAHA_AV>'
 		root = xmitToReceiver( dev, xml_string)
 		self.updateStatus(dev)
 
@@ -182,6 +182,6 @@ class Plugin(indigo.PluginBase):
 
 	def setInput(self, pluginAction, dev):
 		self.debugLog(u"setInput called")
-		val = pluginAction.props['newinput'].upper().replace(".","/").replace("_"," ")
+		val = pluginAction.props['ddlinput'].upper().replace(".","/").replace("_"," ")
 		self.putInput(dev, val)
 
