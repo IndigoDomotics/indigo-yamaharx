@@ -80,6 +80,33 @@
 			</Field>
 		</ConfigUI>
 	</Action>
+	<Action id="setInput" deviceFilter="self">
+		<Name>Set Input</Name>
+		<CallbackMethod>setInput</CallbackMethod>
+		<ConfigUI>
+			<Field id="ddlinput" type="menu">
+				<Label>Set Input</Label>
+				<List>
+					<Option value="tuner">TUNER</Option>
+					<Option value="multi_ch">MULTI CH</Option>
+					<Option value="phono">PHONO</Option>
+					<Option value="cd">CD</Option>
+					<Option value="tv">TV</Option>
+					<Option value="md.cd-r">MD/CD-R</Option>
+					<Option value="bd.hd_dvd">BD/HD DVD</Option>
+					<Option value="dvd">DVD</Option>
+					<Option value="cbl.sat">CBL/SAT</Option>
+					<Option value="dvr">DVR</Option>
+					<Option value="vcr">VCR</Option>
+					<Option value="v-aux">V-AUX</Option>
+					<Option value="dock">DOCK</Option>
+					<Option value="pc.mcx">PC/MCX</Option>
+					<Option value="net_radio">NET RADIO</Option>
+					<Option value="usb">USB</Option>
+				</List>
+			</Field>
+		</ConfigUI>
+	</Action>	
 	<Action id="getStatus" deviceFilter="self">
 		<Name>Get Status</Name>
 		<CallbackMethod>getStatus</CallbackMethod>
