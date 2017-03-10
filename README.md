@@ -54,8 +54,8 @@ the rxv library to do this - sometimes it works sometimes it doesn't)
 * volume (float)
 * mute (bool)
 * input 
-	RX-V3900: (sirius, xm, tuner, multi_ch, phono, cd, tv, md.cd-r, bd.hd_dvd, dvd, cbl.sat, dvr, vcr, v-aux, dock, pc.mcx, net_radio, rhapsody, usb)
-	RX-Vx73: (based on receiver capability - input list is dynamically generated for the set input action)
+	* RX-V3900: (sirius, xm, tuner, multi_ch, phono, cd, tv, md.cd-r, bd.hd_dvd, dvd, cbl.sat, dvr, vcr, v-aux, dock, pc.mcx, net_radio, rhapsody, usb)
+	* RX-Vx73: (based on receiver capability - input list is dynamically generated for the set input action)
 	
 ### License
 
