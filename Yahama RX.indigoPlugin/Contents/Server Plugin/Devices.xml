@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<Devices>
+    <Device type="custom" id="receiver">
+        <Name>Yamaha RX-V3900 Series Receiver</Name>
+        <ConfigUI>
+            <Field id="txtip" type="textfield" default="192.168.1.4">
+                <Label>Receiver IP Address</Label>
+                <Description>enter the ip address of your reciever</Description>
+            </Field>
+        </ConfigUI>
+        <States>
+            <State id="power">
+                <ValueType>
+                    <List>
+                        <Option value="On">On</Option>
+                        <Option value="Standby">Standby</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Power</TriggerLabel>
+                <ControlPageLabel>Power</ControlPageLabel>
+            </State>
+            <State id="sleep">
+                <ValueType>
+                    <List>
+                        <Option value="Off">Off</Option>
+                        <Option value="n30">30</Option>
+                        <Option value="n60">60</Option>
+                        <Option value="n90">90</Option>
+                        <Option value="n120">120</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Sleep</TriggerLabel>
+                <ControlPageLabel>Sleep</ControlPageLabel>
+            </State>
+            <State id="volume">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>Volume</TriggerLabel>
+                <ControlPageLabel>Volume</ControlPageLabel>
+            </State>
+            <State id="mute">
+                <ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Mute</TriggerLabel>
+                <ControlPageLabel>Mute</ControlPageLabel>
+            </State>
+            <State id="input">
+                <ValueType>
+                    <List>
+                        <Option value="sirius">SIRIUS</Option>
+                        <Option value="xm">XM</Option>
+                        <Option value="tuner">TUNER</Option>
+                        <Option value="multi_ch">MULTI CH</Option>
+                        <Option value="phono">PHONO</Option>
+                        <Option value="cd">CD</Option>
+                        <Option value="tv">TV</Option>
+                        <Option value="md.cd-r">MD/CD-R</Option>
+                        <Option value="bd.hd_dvd">BD/HD DVD</Option>
+                        <Option value="dvd">DVD</Option>
+                        <Option value="cbl.sat">CBL/SAT</Option>
+                        <Option value="dvr">DVR</Option>
+                        <Option value="vcr">VCR</Option>
+                        <Option value="v-aux">V-AUX</Option>
+                        <Option value="dock">DOCK</Option>
+                        <Option value="pc.mcx">PC/MCX</Option>
+                        <Option value="net_radio">NET RADIO</Option>
+                        <Option value="rhapsody">RHAPSODY</Option>
+                        <Option value="usb">USB</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Input</TriggerLabel>
+                <ControlPageLabel>Input</ControlPageLabel>
+            </State>
+        </States>
+    </Device>
+    <Device type="custom" id="rxvX73">
+		<Name>Yamaha RX-Vx73 Series Receiver</Name>
+		<ConfigUI>
+			<Field id="desc-label" type="label">
+				<Label>This device type is for RX-Vx73 receivers (RX-V473, RX-V573, RX-V673, RX-V773). It may also work with newer receivers in the RX-V family.</Label>
+			</Field>
+            <Field id="control-url" type="menu" enabledBindingId="use-manual-field" enabledBindingNegate="true">
+				<Label>Select Yahama Receiver:</Label>
+				<List class="self" method="get_receiver_list" dynamicReload="true" />
+            </Field>
+            <Field id="find-receivers" type="button" enabledBindingId="use-manual-field" enabledBindingNegate="true">
+                <Title>Find Receivers</Title>
+                <CallbackMethod>refresh_receiver_list</CallbackMethod>
+            </Field>
+            <Field id="use-manual-field" type="checkbox" default="false">
+                <Description>Use manual IP address</Description>
+            </Field>
+			<Field id="manual-ip" type="textfield" visibleBindingId="use-manual-field" visibleBindingValue="true" alwaysUseInDialogHeightCalc="true">
+				<Label>IP Address:</Label>
+			</Field>
+			<Field id="manual-ip-label" type="label" alignWithControl="true" visibleBindingId="use-manual-field" visibleBindingValue="true" alwaysUseInDialogHeightCalc="true">
+				<Label>Enter the receiver's IP address</Label>
+			</Field>
+		</ConfigUI>
+        <States>
+            <State id="power">
+                <ValueType>
+                    <List>
+                        <Option value="On">On</Option>
+                        <Option value="Standby">Standby</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Power</TriggerLabel>
+                <ControlPageLabel>Power</ControlPageLabel>
+            </State>
+            <State id="sleep">
+                <ValueType>
+                    <List>
+                        <Option value="Off">Off</Option>
+                        <Option value="n30">30 Minutes</Option>
+                        <Option value="n60">60 Minutes</Option>
+                        <Option value="n90">90 Minutes</Option>
+                        <Option value="n120">120 Minutes</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Sleep</TriggerLabel>
+                <ControlPageLabel>Sleep</ControlPageLabel>
+            </State>
+            <State id="volume">
+                <ValueType>Float</ValueType>
+                <TriggerLabel>Volume</TriggerLabel>
+                <ControlPageLabel>Volume</ControlPageLabel>
+            </State>
+            <State id="mute">
+                <ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Mute</TriggerLabel>
+                <ControlPageLabel>Mute</ControlPageLabel>
+            </State>
+            <State id="input">
+                <ValueType>
+                    <List>
+                        <Option value="AirPlay">AirPlay</Option>
+                        <Option value="AUDIO">Audio</Option>
+                        <Option value="AV1">AV1</Option>
+                        <Option value="AV2">AV2</Option>
+                        <Option value="AV3">AV3</Option>
+                        <Option value="AV4">AV4</Option>
+                        <Option value="AV5">AV5</Option>
+                        <Option value="AV6">AV6</Option>
+                        <Option value="HDMI1">HDMI1</Option>
+                        <Option value="HDMI2">HDMI2</Option>
+                        <Option value="HDMI3">HDMI3</Option>
+                        <Option value="HDMI4">HDMI4</Option>
+                        <Option value="iPod">iPod (USB)</Option>
+                        <Option value="NET_RADIO">Net Radio</Option>
+                        <Option value="SERVER">Server</Option>
+                        <Option value="TUNER">Tuner</Option>
+                        <Option value="USB">USB</Option>
+                        <Option value="V-AUX">V-AUX</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Input</TriggerLabel>
+                <ControlPageLabel>Input</ControlPageLabel>
+            </State>
+        </States>
+		<UiDisplayStateId>power</UiDisplayStateId>
+    </Device>
+</Devices>

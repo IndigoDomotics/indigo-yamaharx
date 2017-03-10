@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<Actions>
+    <Action id="setVolume" deviceFilter="self"  uiPath="DeviceActions">
+        <Name>Set Volume</Name>
+        <CallbackMethod>setVolume</CallbackMethod>
+        <ConfigUI>
+            <Field id="txtvolume" type="textfield" defaultValue="-30">
+                <Label>Level</Label>
+                <Description>in dB</Description>
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="increaseVolume" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Increase Volume</Name>
+        <CallbackMethod>increaseVolume</CallbackMethod>
+        <ConfigUI>
+            <Field id="txtincrement" type="textfield" defaultValue="5">
+                <Label>Increment</Label>
+                <Description>in dB</Description>
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="decreaseVolume" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Decrease Volume</Name>
+        <CallbackMethod>decreaseVolume</CallbackMethod>
+        <ConfigUI>
+            <Field id="txtincrement" type="textfield" defaultValue="5">
+                <Label>Increment</Label>
+                <Description>in dB</Description>
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="setMute" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Set Mute</Name>
+        <CallbackMethod>setMute</CallbackMethod>
+        <ConfigUI>
+            <Field id="ddlmute" type="menu" defaultValue="On">
+                <Label>Set Mute</Label>
+                <List>
+                    <Option value="On">On</Option>
+                    <Option value="Off">Off</Option>
+                </List>
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="toggleMute" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Toggle Mute</Name>
+        <CallbackMethod>toggleMute</CallbackMethod>
+    </Action>
+    <Action id="setPower" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Set Power</Name>
+        <CallbackMethod>setPower</CallbackMethod>
+        <ConfigUI>
+            <Field id="ddlpower" type="menu" defaultValue="On">
+                <Label>Set Power</Label>
+                <List>
+                    <Option value="On">On</Option>
+                    <Option value="Standby">Standby</Option>
+                </List>
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="togglePower" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Toggle Power</Name>
+        <CallbackMethod>togglePower</CallbackMethod>
+    </Action>
+    <Action id="setSleep" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Set Sleep</Name>
+        <CallbackMethod>setSleep</CallbackMethod>
+        <ConfigUI>
+            <Field id="ddlsleep" type="menu" defaultValue="Off">
+                <Label>Set Sleep</Label>
+                <List>
+                    <Option value="Off">Off</Option>
+                    <Option value="n30">30</Option>
+                    <Option value="n60">60</Option>
+                    <Option value="n90">90</Option>
+                    <Option value="n120">120</Option>
+                </List>
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="setInput" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Set Input</Name>
+        <CallbackMethod>setInput</CallbackMethod>
+        <ConfigUI>
+            <Field id="ddlinput" type="menu" defaultValue="">
+                <Label>Set Input</Label>
+                <List class="self" method="get_input_list" dynamicReload="true" />
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="getStatus" deviceFilter="self" uiPath="DeviceActions">
+        <Name>Get Status</Name>
+        <CallbackMethod>getStatus</CallbackMethod>
+    </Action>
+    <Action id="sep0" uiPath="DeviceActions"/>
+    <Action id="setZone" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Set Zone</Name>
+        <CallbackMethod>setZone</CallbackMethod>
+        <ConfigUI>
+            <Field id="zone" type="menu" defaultValue="">
+                <Label>Set Zone</Label>
+                <List class="self" method="get_zone_list" dynamicReload="true" />
+            </Field>
+        </ConfigUI>
+    </Action>
+    <Action id="menuUp" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Menu Up</Name>
+        <CallbackMethod>menuUp</CallbackMethod>
+    </Action>
+    <Action id="menuDown" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Menu Down</Name>
+        <CallbackMethod>menuDown</CallbackMethod>
+    </Action>
+    <Action id="menuLeft" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Menu Left</Name>
+        <CallbackMethod>menuLeft</CallbackMethod>
+    </Action>
+    <Action id="menuRight" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Menu Right</Name>
+        <CallbackMethod>menuRight</CallbackMethod>
+    </Action>
+    <Action id="menuSelect" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Menu Select</Name>
+        <CallbackMethod>menuSelect</CallbackMethod>
+    </Action>
+    <Action id="menuReturn" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Menu Return</Name>
+        <CallbackMethod>menuReturn</CallbackMethod>
+    </Action>
+    <Action id="playNetRadio" deviceFilter="self.rxvX73" uiPath="DeviceActions">
+        <Name>Play Net Radio Station (Experimental)</Name>
+        <CallbackMethod>playNetRadio</CallbackMethod>
+        <ConfigUI>
+            <Field id="path" type="textfield">
+                <Label>Path to Station</Label>
+            </Field>
+            <Field id="label" type="label" alignWithControls="true">
+                <Label>Enter the full path to the station using '>' as the menu separator (i.e. "New Stations>888 Radio")</Label>
+            </Field>
+        </ConfigUI>
+    </Action>
+</Actions>
