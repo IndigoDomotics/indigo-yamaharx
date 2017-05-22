@@ -147,6 +147,7 @@
                         <Option value="HDMI5">HDMI5</Option>
                         <Option value="iPod">iPod (USB)</Option>
                         <Option value="NET_RADIO">Net Radio</Option>
+                        <Option value="Pandora">Pandora</Option>
                         <Option value="SERVER">Server</Option>
                         <Option value="TUNER">Tuner</Option>
                         <Option value="USB">USB</Option>
