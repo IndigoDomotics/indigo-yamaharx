@@ -135,7 +135,7 @@ class Plugin(indigo.PluginBase):
 
     def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
         indigo.PluginBase.__init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
-        self.debug = True
+        self.debug = pluginPrefs.get("showDebugInfo", False)
         self.devices = {}
         self.refresh_receiver_list()
 
@@ -221,6 +221,20 @@ class Plugin(indigo.PluginBase):
         if rxv_obj:
             return [(k, k) for k in rxv_obj.zones()]
         return []
+
+    ########################################
+    # Prefs dialog methods
+    ########################################
+    def closedPrefsConfigUi(self, valuesDict, userCancelled):
+        # Since the dialog closed we want to set the debug flag - if you don't directly use
+        # a plugin's properties (and for debugLog we don't) you'll want to translate it to
+        # the appropriate stuff here.
+        if not userCancelled:
+            self.debug = valuesDict.get("showDebugInfo", False)
+            if self.debug:
+                indigo.server.log("Debug logging enabled")
+            else:
+                indigo.server.log("Debug logging disabled")
 
     ##################################
     # Helper methods

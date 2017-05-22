@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <PluginConfig>
-<Field id="lblFoo" type="label">
-	<Label>the cake is a lie</Label>
-</Field>
+	<Field id="topLabel" type="label" fontSize="small" fontColor="darkgray">
+		<Label>If you are having problems with the plugin (or you are instructed by support), you can enable extra logging in the Event Log window by checking this button. Use with caution.</Label>
+	</Field>
+	<Field id="showDebugInfo" type="checkbox">
+		<Label>Enable debuging:</Label>
+		<Description>(not recommended)</Description>
+	</Field>
 </PluginConfig>
