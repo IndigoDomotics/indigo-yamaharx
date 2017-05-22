@@ -144,6 +144,7 @@
                         <Option value="HDMI2">HDMI2</Option>
                         <Option value="HDMI3">HDMI3</Option>
                         <Option value="HDMI4">HDMI4</Option>
+                        <Option value="HDMI5">HDMI5</Option>
                         <Option value="iPod">iPod (USB)</Option>
                         <Option value="NET_RADIO">Net Radio</Option>
                         <Option value="SERVER">Server</Option>
