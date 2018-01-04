@@ -9,6 +9,8 @@ supported.
 
 1. [Indigo 7](http://www.indigodomo.com/) or later
 2. Yamaha RX-V Series A/V Receiver (needs to be accessible via network from the box hosting your Indigo server)
+3. It appears that RX-A Series Receivers work as well (an RX-A3070 and RX-1070 have been tested by a user). Just use the
+RX-Vx73 receiver type.
 
 ### Installation Instructions
 
@@ -19,7 +21,8 @@ note that it only supports the RX-V3900. Support for newer receivers requires v1
 
 ### Compatible Hardware
 This plugin supports both the RX-V3900 and the RX-Vx73 (RX-V473, RX-V573, RX-V673, RX-V773) receiver line. Other 
-Yahama RX-V receivers that use the same command API may also work.
+Yahama RX-V receivers that use the same command API may also work (the RX-A3070 and RX0A1070 have been tested and seem 
+to work.
 
 ### Usage
 
