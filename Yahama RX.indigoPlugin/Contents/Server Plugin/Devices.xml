@@ -136,7 +136,8 @@
                         <Option value="AUDIO">Audio</Option>
                         <Option value="AUDIO1">Audio1</Option>
                         <Option value="AUDIO2">Audio2</Option>
-                        <Option value="AV1">AV1</Option>
+                        <Option value="AUDIO3">Audio3</Option>
+			<Option value="AV1">AV1</Option>
                         <Option value="AV2">AV2</Option>
                         <Option value="AV3">AV3</Option>
                         <Option value="AV4">AV4</Option>
