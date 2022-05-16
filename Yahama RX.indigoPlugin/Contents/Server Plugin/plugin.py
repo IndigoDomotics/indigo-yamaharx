@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import traceback
 
-import requests
+# import requests
 from requests.exceptions import ConnectionError, ConnectTimeout, ReadTimeout
 
 import rxv
@@ -17,8 +17,10 @@ except ImportError:
 
 from xml.etree.ElementTree import ParseError
 
-try: import indigo
-except: pass
+try:
+    import indigo
+except:
+    pass
 
 kSleepBetweenUpdatePolls = 2   # number of seconds to sleep between polling each receiver for current status
 kSleepValueMap = {
@@ -31,6 +33,7 @@ kSleepValueMap = {
 
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1", "on")
+
 
 class ClassicReceiver(object):
     kInputList = (
@@ -55,11 +58,11 @@ class ClassicReceiver(object):
     def xmitToReceiver(dev, xml_string):
         url = 'http://' + dev.pluginProps['txtip'] + '/YamahaRemoteControl/ctrl'
 
-        req = urllib2.Request(
+        req = urllib.request.Request(
             url=url,
             data=xml_string,
             headers={'Content-Type': 'application/xml'})
-        resp = urllib2.urlopen(req)
+        resp = urllib.request.urlopen(req)
         status_xml = resp.read()
         root = ET.fromstring(status_xml)
         return root
@@ -67,11 +70,11 @@ class ClassicReceiver(object):
     @staticmethod
     def putMute(logger, dev, val):
         if dev is None:
-            logger.debug(u"no device defined")
+            logger.debug("no device defined")
             return
 
         if val is None:
-            logger.debug(u"value not defined")
+            logger.debug("value not defined")
             return
 
         xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Mute>'+val+'</Mute></Vol></Main_Zone></YAMAHA_AV>'
@@ -80,11 +83,11 @@ class ClassicReceiver(object):
     @staticmethod
     def putVolume(logger, dev, val):
         if dev is None:
-            logger.debug(u"no device defined")
+            logger.debug("no device defined")
             return
 
         if val is None:
-            logger.debug(u"value not defined")
+            logger.debug("value not defined")
             return
 
         xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Vol><Lvl><Val>'+val+'</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Vol></Main_Zone></YAMAHA_AV>'
@@ -93,11 +96,11 @@ class ClassicReceiver(object):
     @staticmethod
     def putPower(logger, dev, val):
         if dev is None:
-            logger.debug(u"no device defined")
+            logger.debug("no device defined")
             return
 
         if val is None:
-            logger.debug(u"value not defined")
+            logger.debug("value not defined")
             return
 
         xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Power>'+val+'</Power></Power_Control></Main_Zone></YAMAHA_AV>'
@@ -106,11 +109,11 @@ class ClassicReceiver(object):
     @staticmethod
     def putSleep(logger, dev, val):
         if dev is None:
-            logger.debug(u"no device defined")
+            logger.debug("no device defined")
             return
 
         if val is None:
-            logger.debug(u"value not defined")
+            logger.debug("value not defined")
             return
 
         xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Sleep>'+val+'</Sleep></Power_Control></Main_Zone></YAMAHA_AV>'
@@ -119,16 +122,15 @@ class ClassicReceiver(object):
     @staticmethod
     def putInput(logger, dev, val):
         if dev is None:
-            logger.debug(u"no device defined")
+            logger.debug("no device defined")
             return
 
         if val is None:
-            logger.debug(u"value not defined")
+            logger.debug("value not defined")
             return
 
         xml_string = '<YAMAHA_AV cmd="PUT"><Main_Zone><Input><Input_Sel>'+val+'</Input_Sel></Input></Main_Zone></YAMAHA_AV>'
         root = ClassicReceiver.xmitToReceiver( dev, xml_string)
-
 
 
 class Plugin(indigo.PluginBase):
@@ -143,12 +145,12 @@ class Plugin(indigo.PluginBase):
     # Standard plugin operation methods
     ##################################
     def startup(self):
-        self.logger.debug(u"startup called")
+        self.logger.debug("startup called")
 
     def shutdown(self):
-        self.logger.debug(u"shutdown called")
+        self.logger.debug("shutdown called")
 
-    def deviceStartComm(self, dev):
+    def device_start_comm(self, dev):
         if dev.deviceTypeId == "receiver":
             devTup = (dev,)
         elif dev.deviceTypeId == "rxvX73":
@@ -160,9 +162,9 @@ class Plugin(indigo.PluginBase):
             except (ConnectTimeout, ReadTimeout, ConnectionError) as e:
                 dev.setErrorStateOnServer('unavailable')
                 if isinstance(e, ConnectTimeout) or  isinstance(e, ReadTimeout):
-                    self.logger.debug("device '%s' connection timed out" % dev.name)
+                    self.logger.debug(f"device '{dev.name}' connection timed out")
                 else:
-                    self.logger.debug("device '%s' had a connection error" % dev.name)
+                    self.logger.debug(f"device '{dev.name}' had a connection error")
                 return
             except ParseError:
                 # This seems to happen relatively frequently - apparently sometimes the amp goes out to lunch for
@@ -171,28 +173,28 @@ class Plugin(indigo.PluginBase):
                 dev.setErrorStateOnServer('unavailable')
                 devTup = (dev, None)
             except Exception as e:
-                self.logger.error("Couldn't start device %s - it may not be available on the network or the IP address may have changed." % dev.name)
-                self.logger.debug("exception starting device:\n%s" % traceback.format_exc(10))
+                self.logger.error(f"Couldn't start device {dev.name} - it may not be available on the network or the IP address may have changed.")
+                self.logger.debug(f"exception starting device:\n{traceback.format_exc(10)}")
                 return
         self.devices[dev.id] = devTup
         self.updateStatus(dev.id)
 
-    def deviceStopComm(self, dev):
+    def device_stop_comm(self, dev):
         try:
             del self.devices[dev.id]
         except:
             pass
 
-    def runConcurrentThread(self):
+    def run_concurrent_thread(self):
         try:
             while True:
-                for devId in self.devices.keys():
+                for devId in list(self.devices.keys()):
                     self.updateStatus(devId)
                 self.sleep(2)
         except self.StopThread:
             return
         except Exception as e:
-            self.logger.error("runConcurrentThread error: \n%s" % traceback.format_exc(10))
+            self.logger.error(f"runConcurrentThread error: \n{traceback.format_exc(10)}")
 
     ##################################
     # Config dialog methods
@@ -203,7 +205,7 @@ class Plugin(indigo.PluginBase):
     # Returns the list of receivers as a tuple for the device config dialog.
     ###############
     def get_receiver_list(self, filter="", valuesDict=None, typeId="", targetId=0):
-        return [(k, v.friendly_name) for k, v in self.receivers.iteritems()]
+        return [(k, v.friendly_name) for k, v in self.receivers.items()]
 
     def get_input_list(self, filter="", valuesDict=None, typeId="", targetId=0):
         dev = indigo.devices.get(targetId, None)
@@ -212,7 +214,7 @@ class Plugin(indigo.PluginBase):
         elif dev.deviceTypeId == "rxvX73":
             dev, rxv_obj = self.devices.get(dev.id, (None, None))
             if rxv_obj:
-                return [(k.replace("iPod (USB)", "iPod").replace(" ", "_"), k) for k in rxv_obj.inputs().keys()]
+                return [(k.replace("iPod (USB)", "iPod").replace(" ", "_"), k) for k in list(rxv_obj.inputs().keys())]
             return []
 
     def get_zone_list(self, filter="", valuesDict=None, typeId="", targetId=0):
@@ -225,7 +227,7 @@ class Plugin(indigo.PluginBase):
     ########################################
     # Prefs dialog methods
     ########################################
-    def closedPrefsConfigUi(self, valuesDict, userCancelled):
+    def closed_prefs_config_ui(self, valuesDict, userCancelled):
         # Since the dialog closed we want to set the debug flag - if you don't directly use
         # a plugin's properties (and for debugLog we don't) you'll want to translate it to
         # the appropriate stuff here.
@@ -250,14 +252,14 @@ class Plugin(indigo.PluginBase):
     ###############
     def refresh_receiver_list(self, filter="", valuesDict=None, typeId="", targetId=0):
         self.receivers = {r.ctrl_url: r for r in rxv.find()}
-        self.logger.debug("receivers list: %s" % unicode(self.receivers))
+        self.logger.debug(f"receivers list: {str(self.receivers)}")
 
     ###############
     # updateStatus
     #
     # Updates the status for the specified device.
     ###############
-    def updateStatus(self, dev_id):
+    def update_status(self, dev_id):
         devTup = self.devices.get(dev_id, None)
         if devTup:
             dev = devTup[0]
@@ -302,20 +304,20 @@ class Plugin(indigo.PluginBase):
                         dev.setErrorStateOnServer(None)
                 except (ConnectTimeout, ReadTimeout, ConnectionError) as e:
                     dev.setErrorStateOnServer('unavailable')
-                    if isinstance(e, ConnectTimeout) or  isinstance(e, ReadTimeout):
-                        self.logger.debug("device '%s' connection timed out" % dev.name)
+                    if isinstance(e, ConnectTimeout) or isinstance(e, ReadTimeout):
+                        self.logger.debug(f"device '{dev.name}' connection timed out")
                     else:
-                        self.logger.debug("device '%s' had a connection error" % dev.name)
+                        self.logger.debug(f"device '{dev.name}' had a connection error")
                 except ParseError:
                     # dev.setErrorStateOnServer('unavailable')
-                    # self.logger.debug("device '%s' failed to update status with an XML parse error" % dev.name)
+                    # self.logger.debug(f"device '{dev.name}' failed to update status with an XML parse error")
                     # This seems to happen relatively frequently - apparently sometimes the amp goes out to lunch for
                     # a bit (causing connection errors) and when it comes back it doesn't always return correct XML.
                     # I think the better idea here is to just pass on these errors as it always seems to resolve itself.
                     pass
                 except Exception as e:
                     dev.setErrorStateOnServer('unavailable')
-                    self.logger.debug("device '%s' failed to update status with error: \n%s" % (dev.name, traceback.format_exc(10)))
+                    self.logger.debug(f"device '{dev.name}' failed to update status with error: \n{traceback.format_exc(10)}")
 
     ###############
     # _set_rxv_property
@@ -334,15 +336,15 @@ class Plugin(indigo.PluginBase):
                 else:
                     setattr(rxv_obj, property, value)
             else:
-                self.logger.error("device '%s' isn't available" % dev.name)
+                self.logger.error(f"device '{dev.name}' isn't available")
         except (ConnectTimeout, ReadTimeout, ConnectionError) as e:
             dev.setErrorStateOnServer('unavailable')
             if isinstance(e, ConnectTimeout) or  isinstance(e, ReadTimeout):
-                self.logger.debug("device '%s' connection timed out" % dev.name)
-                self.logger.error("device '%s' is unavailable" % dev.name)
+                self.logger.debug(f"device '{dev.name}' connection timed out")
+                self.logger.error(f"device '{dev.name}' is unavailable")
             else:
-                self.logger.debug("device '%s' had a connection error" % dev.name)
-                self.logger.error("device '%s' is unavailable" % dev.name)
+                self.logger.debug(f"device '{dev.name}' had a connection error")
+                self.logger.error(f"device '{dev.name}' is unavailable")
         except rxv_exceptions.ResponseException as e:
             response = ET.XML(str(e))
             if response.get("RC") == "3":
@@ -350,21 +352,21 @@ class Plugin(indigo.PluginBase):
                 # We just skip it.
                 pass
             elif response.get("RC") != "4":
-                self.logger.error("device '%s' can't have property '%s' set to value '%s'" % (dev.name, property, str(value)))
+                self.logger.error(f"device '{dev.name}' can't have property '{property}' set to value '{str(value)}'")
             else:
                 # RC 4 is what happens when the amp is offline or in standby and you try to send it a command other than
                 # to turn on (if in standby)
-                self.logger.error("device '%s' is unavailable" % dev.name)
+                self.logger.error(f"device '{dev.name}' is unavailable")
         except ET.ParseError:
             # dev.setErrorStateOnServer('unavailable')
-            # self.logger.debug("device '%s' failed to update status with an XML parse error" % dev.name)
+            # self.logger.debug(f"device '{dev.name}' failed to update status with an XML parse error")
             # This seems to happen relatively frequently - apparently sometimes the amp goes out to lunch for
             # a bit (causing connection errors) and when it comes back it doesn't always return correct XML.
             # I think the better idea here is to just pass on these errors as it always seems to resolve itself.
             pass
         except:
             dev.setErrorStateOnServer('unavailable')
-            self.logger.error("device '%s' failed to set property status with error: \n%s" % (dev.name, traceback.format_exc(10)))
+            self.logger.error(f"device '{dev.name}' failed to set property status with error: \n{traceback.format_exc(10)}")
 
     ##################################
     # Action methods
@@ -373,7 +375,7 @@ class Plugin(indigo.PluginBase):
         self.updateStatus(dev.id)
 
     def setMute(self, pluginAction, dev):
-        self.logger.debug(u"setMute called")
+        self.logger.debug("setMute called")
         val = pluginAction.props['ddlmute']
         if dev.deviceTypeId == "receiver":
             ClassicReceiver.putMute(self.logger, dev, val)
@@ -381,7 +383,7 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'mute', str2bool(val))
 
     def toggleMute(self, pluginAction, dev):
-        self.logger.debug(u"toggleMute called")
+        self.logger.debug("toggleMute called")
         self.updateStatus(dev.id)
         dev.refreshFromServer()
         if dev.deviceTypeId == "receiver":
@@ -391,7 +393,7 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'mute', not str2bool(dev.states['mute']))
 
     def setVolume(self, pluginAction, dev):
-        self.logger.debug(u"setVolume called")
+        self.logger.debug("setVolume called")
         val = pluginAction.props['txtvolume']
         if dev.deviceTypeId == "receiver":
             ClassicReceiver.putVolume(self.logger, dev, val)
@@ -399,7 +401,7 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'volume', float(val))
 
     def increaseVolume(self, pluginAction, dev):
-        self.logger.debug(u"increaseVolume called")
+        self.logger.debug("increaseVolume called")
         self.updateStatus(dev.id)
         dev.refreshFromServer()
         val = float(dev.states['volume']) + int(pluginAction.props['txtincrement'])
@@ -409,7 +411,7 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'volume', val)
 
     def decreaseVolume(self, pluginAction, dev):
-        self.logger.debug(u"decreaseVolume called")
+        self.logger.debug("decreaseVolume called")
         self.updateStatus(dev.id)
         dev.refreshFromServer()
         val = float(dev.states['volume']) - int(pluginAction.props['txtincrement'])
@@ -419,7 +421,7 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'volume', val)
 
     def setPower(self, pluginAction, dev):
-        self.logger.debug(u"setPower called")
+        self.logger.debug("setPower called")
         val = pluginAction.props['ddlpower']
         if dev.deviceTypeId == "receiver":
             ClassicReceiver.putPower(self.logger, dev, val)
@@ -427,7 +429,7 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'on', str2bool(val))
 
     def togglePower(self, pluginAction, dev):
-        self.logger.debug(u"togglePower called")
+        self.logger.debug("togglePower called")
         self.updateStatus(dev.id)
         dev.refreshFromServer()
         val = 'On' if (dev.states['power']=='Standby') else 'Standby'
@@ -437,15 +439,15 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'on', str2bool(val))
 
     def setSleep(self, pluginAction, dev):
-        self.logger.debug(u"setSleep called")
+        self.logger.debug("setSleep called")
         val = pluginAction.props['ddlsleep'].replace('n','')
         if dev.deviceTypeId == "receiver":
             ClassicReceiver.putSleep(self.logger, dev, val)
         elif dev.deviceTypeId == "rxvX73":
-            self._set_rxv_property(dev, 'sleep', "Off" if val == "Off" else "%s min" % val)
+            self._set_rxv_property(dev, 'sleep', "Off" if val == "Off" else f"{val} min")
 
     def setInput(self, pluginAction, dev):
-        self.logger.debug(u"setInput called")
+        self.logger.debug("setInput called")
         if dev.deviceTypeId == "receiver":
             val = pluginAction.props['ddlinput'].upper().replace(".","/").replace("_"," ")
             ClassicReceiver.putInput(self.logger, dev, val)
@@ -453,33 +455,33 @@ class Plugin(indigo.PluginBase):
             self._set_rxv_property(dev, 'input', pluginAction.props['ddlinput'].replace("_", " ").replace("iPod", "iPod (USB)"))
 
     def setZone(self, pluginAction, dev):
-        self.logger.debug(u"setZone called")
+        self.logger.debug("setZone called")
         self._set_rxv_property(dev, 'zone', pluginAction.props['zone'])
 
     def playNetRadio(self, pluginAction, dev):
-        self.logger.debug(u"playNetRadio called")
+        self.logger.debug("playNetRadio called")
         self._set_rxv_property(dev, 'net_radio', pluginAction.props['path'])
 
     def menuUp(self, pluginAction, dev):
-        self.logger.debug(u"menuUp called")
+        self.logger.debug("menuUp called")
         self._set_rxv_property(dev, 'menu_up', None)
 
     def menuDown(self, pluginAction, dev):
-        self.logger.debug(u"menuDown called")
+        self.logger.debug("menuDown called")
         self._set_rxv_property(dev, 'menu_down', None)
 
     def menuLeft(self, pluginAction, dev):
-        self.logger.debug(u"menuLeft called")
+        self.logger.debug("menuLeft called")
         self._set_rxv_property(dev, 'menu_left', None)
 
     def menuRight(self, pluginAction, dev):
-        self.logger.debug(u"menuRight called")
+        self.logger.debug("menuRight called")
         self._set_rxv_property(dev, 'menu_right', None)
 
     def menuSelect(self, pluginAction, dev):
-        self.logger.debug(u"menuSelect called")
+        self.logger.debug("menuSelect called")
         self._set_rxv_property(dev, 'menu_sel', None)
 
     def menuReturn(self, pluginAction, dev):
-        self.logger.debug(u"menuReturn called")
+        self.logger.debug("menuReturn called")
         self._set_rxv_property(dev, 'menu_return', None)
