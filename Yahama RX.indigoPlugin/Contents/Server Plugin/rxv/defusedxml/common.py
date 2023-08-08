@@ -118,6 +118,7 @@ def _generate_etree_functions(DefusedXMLParser, _TreeBuilder, _parse, _iterparse
 
     def fromstring(text, forbid_dtd=False, forbid_entities=True, forbid_external=True):
         parser = DefusedXMLParser(
+            encoding="UTF-8",
             target=_TreeBuilder(),
             forbid_dtd=forbid_dtd,
             forbid_entities=forbid_entities,

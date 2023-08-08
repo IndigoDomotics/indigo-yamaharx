@@ -8,7 +8,7 @@ import xml
 from collections import namedtuple
 
 import requests
-from defusedxml import cElementTree
+from .defusedxml import ElementTree
 
 try:
     from urllib.parse import urljoin
@@ -80,7 +80,7 @@ def rxv_details(location):
     """Looks under given UPNP url, and checks if Yamaha amplituner lives there
        returns RxvDetails if yes, None otherwise"""
     try:
-        res = cElementTree.XML(requests.get(location).content)
+        res = ElementTree.XML(requests.get(location).content)
     except xml.etree.ElementTree.ParseError:
         return None
     url_base_el = res.find(URL_BASE_QUERY)

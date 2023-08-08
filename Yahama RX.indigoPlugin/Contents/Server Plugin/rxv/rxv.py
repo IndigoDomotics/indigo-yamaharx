@@ -12,7 +12,7 @@ from collections import namedtuple
 from math import floor
 
 import requests
-from defusedxml import cElementTree
+from .defusedxml import ElementTree
 
 from .exceptions import (CommandUnavailable, MenuUnavailable,
                          MenuActionUnavailable, PlaybackUnavailable,
@@ -143,7 +143,7 @@ class RXV(object):
                         self.unit_desc_url
                     ))
                 return
-            self._desc_xml = cElementTree.fromstring(desc_xml)
+            self._desc_xml = ElementTree.fromstring(desc_xml)
         except xml.etree.ElementTree.ParseError:
             logger.exception("Invalid XML returned for request %s: %s",
                              self.unit_desc_url, desc_xml)
@@ -181,7 +181,7 @@ class RXV(object):
                 timeout=self.http_timeout
             )
             # releases connection to the pool
-            response = cElementTree.XML(res.content)
+            response = ElementTree.XML(res.content)
             if response.get("RC") != "0":
                 logger.error("Request %s failed with %s",
                              request_text, res.content)

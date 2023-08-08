@@ -259,7 +259,7 @@ class Plugin(indigo.PluginBase):
     #
     # Updates the status for the specified device.
     ###############
-    def update_status(self, dev_id):
+    def updateStatus(self, dev_id):
         devTup = self.devices.get(dev_id, None)
         if devTup:
             dev = devTup[0]
