@@ -10,11 +10,7 @@ from collections import namedtuple
 import requests
 from .defusedxml import ElementTree
 
-try:
-    from urllib.parse import urljoin
-except ImportError:
-    from urlparse import urljoin
-
+from urllib.parse import urljoin
 
 SSDP_ADDR = '239.255.255.250'
 SSDP_PORT = 1900
