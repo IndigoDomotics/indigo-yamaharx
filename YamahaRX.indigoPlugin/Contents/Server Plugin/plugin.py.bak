@@ -17,8 +17,10 @@ except ImportError:
 
 from xml.etree.ElementTree import ParseError
 
-try: import indigo
-except: pass
+try:
+    import indigo
+except:
+    pass
 
 kSleepBetweenUpdatePolls = 2   # number of seconds to sleep between polling each receiver for current status
 kSleepValueMap = {
